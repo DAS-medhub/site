@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose - Virtual Health Assistant | Maintenance</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5b6bf0;
+            --secondary-color: #7b72ff;
+            --accent-color: #ff6b8b;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --text-color: #4a5568;
+            --light-text: #718096;
+            --border-radius: 16px;
+            --box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            color: var(--text-color);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(91, 107, 240, 0.1);
+        }
+
+        .logo i {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+        }
+
+        .maintenance-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 4rem 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maintenance-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: var(--transition);
+        }
+
+        .avatar-container:hover .avatar {
+            transform: scale(1.05);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--accent-color), #ff4757);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .alert-banner {
+            background-color: #fff8f0;
+            border-left: 5px solid #ffb347;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: var(--border-radius);
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .alert-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .alert-banner i {
+            color: #ffb347;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .alert-content {
+            text-align: left;
+        }
+
+        .alert-content strong {
+            color: var(--dark-color);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px rgba(91, 107, 240, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(91, 107, 240, 0.4);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, rgba(91, 107, 240, 0.1), rgba(123, 114, 255, 0.1));
+            width: 80px;
+            height: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 3rem 2rem 2rem;
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #edf2f7;
+            border-radius: 50px;
+            height: 12px;
+            margin: 2.5rem auto;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            border-radius: 50px;
+            width: 65%;
+            animation: progressAnimation 2s ease-in-out infinite, progressGradient 4s ease infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 65%; }
+            50% { width: 75%; }
+            100% { width: 65%; }
+        }
+
+        @keyframes progressGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .progress-text {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--light-text);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .maintenance-container {
+                padding: 3rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .avatar-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .status-badge {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="DAS Medhub Logo" />
+            </div>
+            
+        </header>
+
+        <div class="maintenance-container">
+            <div class="avatar-container">
+                <img src="images/image-removebg-preview.png" alt="Rose Virtual Health Assistant" class="avatar">
+                <div class="status-badge">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+
+            <h1>Rose is Getting a Technical Check</h1>
+            <p class="subtitle">
+                Our virtual health assistant Rose is currently undergoing scheduled maintenance and improvements to serve you better. We're working hard to bring you an enhanced experience with new features and better performance.
+            </p>
+
+            <div class="alert-banner">
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="alert-content">
+                    <strong>Try our text-based symptom checker</strong>
+                    While Rose is being upgraded, you can still assess your symptoms using our alternative text-based tool that provides preliminary health insights.
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="progress-text">Maintenance in progress - Estimated completion: 2 hours</div>
+
+            <a href="rose.html" class="btn">
+                <span>Go to Text-Based Assessment</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3 class="feature-title">Comprehensive Symptom Assessment</h3>
+                <p>Get detailed preliminary assessment of your symptoms while waiting for Rose to return with enhanced capabilities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="feature-title">Always Available</h3>
+                <p>Our alternative tools are available 24/7, ensuring you have access to health information whenever you need it.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Secure & Confidential</h3>
+                <p>We maintain the highest standards of data security and privacy for all your health information.</p>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+           <!--<a href="#" class="social-link"><i class="fab fa-instagram"></i></a>-->
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 DAS medhub. All rights reserved.</p>
+        <p class="contact-link" style="margin-top: 0.5rem;">
+            <a href="mailto:dasmedhub@outlook.com" style="color: var(--primary-color); text-decoration: none;">Contact Support</a>
+        </p>
+    </footer>
+
+    <script>
+        // Enhanced countdown timer with dynamic progress bar
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(now.getHours() + 2); // 2 hours from now
+            
+            const totalTime = 2 * 60 * 60 * 1000; // 2 hours in ms
+            const diff = target - now;
+            const elapsed = totalTime - diff;
+            const progressPercent = Math.min(100, Math.max(0, (elapsed / totalTime) * 100));
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            const progressBar = document.querySelector('.progress-bar');
+            const progressText = document.querySelector('.progress-text');
+            
+            if (diff > 0) {
+                progressBar.style.width = `${progressPercent}%`;
+                progressText.textContent = `Maintenance in progress - Estimated completion: ${hours}h ${minutes}m`;
+                
+                // Change color when nearing completion
+                if (progressPercent > 80) {
+                    progressBar.style.background = 'linear-gradient(90deg, #4CAF50, #2ECC71)';
+                } else if (progressPercent > 60) {
+                    progressBar.style.background = 'linear-gradient(90deg, #FFA500, #FFC300)';
+                }
+            } else {
+                progressText.textContent = "Maintenance completed! Rose should be back online shortly.";
+                progressBar.style.width = '100%';
+                progressBar.style.animation = 'none';
+                progressBar.style.background = 'linear-gradient(90deg, #4CAF50, #2ECC71)';
+                
+                // Update button text
+                const btn = document.querySelector('.btn');
+                btn.innerHTML = '<span>Access Rose Now</span> <i class="fas fa-arrow-right"></i>';
+                btn.href = 'rose.html';
+            }
+        }
+        
+        // Update countdown every 30 seconds for smoother progress bar
+        updateCountdown();
+        setInterval(updateCountdown, 30000);
+        
+        // Add animation to button icon
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('mouseenter', function() {
+            this.querySelector('i').style.transform = 'translateX(5px)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.querySelector('i').style.transform = 'translateX(0)';
+        });
+        
+        // Add subtle animation to feature cards when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

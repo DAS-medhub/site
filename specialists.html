@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specialist</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="Virtual Health Assistant Logo">
+               <!-- <h1>Virtual Health Assistant</h1>-->
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="specialists.html">Health Specialists</a></li>
+                    <li><a href="hospitals.html">Hospitals</a></li>
+                    <li><a href="pharmacies.html">Pharmacies</a></li>
+                    <li><a href="#" class="btn-primary">My Account</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page-specific content will go here -->
+<!-- Insert after header in the main structure -->
+<main class="specialists-page">
+    <section class="hero">
+        <div class="container">
+            <h2>Recommended Health Specialists</h2>
+            <p>Based on your symptoms, we recommend consulting with these healthcare professionals.</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label for="specialty">Specialty:</label>
+                    <select id="specialty">
+                        <option value="all">All Specialties</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="dermatology">Dermatology</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location">Location:</label>
+                    <select id="location">
+                        <option value="all">All Locations</option>
+                        <option value="ny">New York</option>
+                        <option value="la">Los Angeles</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="availability">Availability:</label>
+                    <select id="availability">
+                        <option value="all">Any Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                    </select>
+                </div>
+                <button class="btn-primary" id="apply-filters">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="specialists-list">
+        <div class="container">
+            <div class="specialist-card">
+                <div class="specialist-image">
+                    <img src="images/female1.webp" alt="Dr. Sarah Johnson">
+                    <span class="online-status online">Online Now</span>
+                </div>
+                <div class="specialist-info">
+                    <h3>Dr. Sarah Johnson</h3>
+                    <p class="specialty">Cardiologist</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (128 reviews)</span>
+                    </div>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> New York Medical Center</p>
+                    <p class="experience"><i class="fas fa-briefcase-medical"></i> 12 years experience</p>
+                    <p class="languages"><i class="fas fa-language"></i> English, Spanish</p>
+                </div>
+                <div class="specialist-actions">
+                    <button class="btn-primary book-btn" data-doctor="dr-sarah-johnson">Book Appointment</button>
+                    <button class="btn-secondary profile-btn">View Profile</button>
+                    <div class="availability">
+                        <p><strong>Next Available:</strong> Tomorrow, 10:00 AM</p>
+                    </div>
+                </div>
+            </div>
+            <!-- More specialist cards would follow the same pattern -->
+            <div class="specialist-card">
+                <div class="specialist-image">
+                    <img src="images/male2.webp" alt="Dr. Sarah Johnson">
+                    <span class="online-status online">Online Now</span>
+                </div>
+                <div class="specialist-info">
+                    <h3>Dr. Frank Baido</h3>
+                    <p class="specialty">Cardiologist</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (128 reviews)</span>
+                    </div>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> New York Medical Center</p>
+                    <p class="experience"><i class="fas fa-briefcase-medical"></i> 12 years experience</p>
+                    <p class="languages"><i class="fas fa-language"></i> English, Spanish</p>
+                </div>
+                <div class="specialist-actions">
+                    <button class="btn-primary book-btn" data-doctor="dr-sarah-johnson">Book Appointment</button>
+                    <button class="btn-secondary profile-btn">View Profile</button>
+                    <div class="availability">
+                        <p><strong>Next Available:</strong> Tomorrow, 10:00 AM</p>
+                    </div>
+                </div>
+            </div>
+            <!-- More specialist cards would follow the same pattern -->
+            <div class="specialist-card">
+                <div class="specialist-image">
+                    <img src="images/male1.webp" alt="Dr. Sarah Johnson">
+                    <span class="online-status online">Online Now</span>
+                </div>
+                <div class="specialist-info">
+                    <h3>Dr. Lawrence Anang</h3>
+                    <p class="specialty">Cardiologist</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (128 reviews)</span>
+                    </div>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> New York Medical Center</p>
+                    <p class="experience"><i class="fas fa-briefcase-medical"></i> 12 years experience</p>
+                    <p class="languages"><i class="fas fa-language"></i> English, Spanish</p>
+                </div>
+                <div class="specialist-actions">
+                    <button class="btn-primary book-btn" data-doctor="dr-sarah-johnson">Book Appointment</button>
+                    <button class="btn-secondary profile-btn">View Profile</button>
+                    <div class="availability">
+                        <p><strong>Next Available:</strong> Tomorrow, 10:00 AM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal (hidden by default) -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Book Appointment with <span id="doctor-name"></span></h3>
+            <form id="appointment-form">
+                <div class="form-group">
+                    <label for="appointment-date">Date</label>
+                    <input type="date" id="appointment-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointment-time">Time</label>
+                    <select id="appointment-time" required>
+                        <option value="">Select a time</option>
+                        <option value="9:00 AM">9:00 AM</option>
+                        <!-- More time options -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointment-reason">Reason for Visit</label>
+                    <textarea id="appointment-reason" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+    <!-- Common Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="images/dasmedhub-logo.png" alt="Footer Logo" class="footer-logo">
+                    <p>Connecting Patients, Accelerating Healing</p>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> support@dasmedhub.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/DASmedhub/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/dasmedhub"><i class="fab fa-twitter"></i></a>
+                        <!--<a href="#"><i class="fab fa-instagram"></i></a>-->
+                        <a href="https://www.linkedin.com/company/das-medhub"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 DAS medhub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="pages.js"></script>
+    <!-- Page-specific scripts will be included here -->
+</body>
+</html>

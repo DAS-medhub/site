@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pharmacy</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="Virtual Health Assistant Logo">
+                 <!-- <h1>Virtual Health Assistant</h1>-->
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="specialists.html">Health Specialists</a></li>
+                    <li><a href="hospitals.html">Hospitals</a></li>
+                    <li><a href="pharmacies.html">Pharmacies</a></li>
+                    <li><a href="#" class="btn-primary">My Account</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page-specific content will go here -->
+
+    <!-- Insert after header in the main structure -->
+<main class="pharmacies-page">
+    <section class="hero">
+        <div class="container">
+            <h2>Recommended Pharmacies</h2>
+            <p>Based on your symptoms, these pharmacies can provide the medications and health products you may need.</p>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for medications or health products...">
+                <button class="btn-primary"><i class="fas fa-search"></i> Search</button>
+            </div>
+            <div class="delivery-options">
+                <label><input type="radio" name="delivery" checked> Pick Up In-Store</label>
+                <label><input type="radio" name="delivery"> Home Delivery</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="pharmacies-list">
+        <div class="container">
+            <div class="pharmacy-card">
+                <div class="pharmacy-image">
+                    <img src="images/pharmacy3.jpg" alt="Life Pharmacy">
+                    <span class="open-status open">Open Now</span>
+                </div>
+                <div class="pharmacy-info">
+                    <h3>Life Pharmacy</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5 (87 reviews)</span>
+                    </div>
+                    <p class="address"><i class="fas fa-map-marker-alt"></i> 456 Health Street, New York, NY 10002</p>
+                    <p class="hours"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 10:00 PM, Sat-Sun: 9:00 AM - 8:00 PM</p>
+                    <p class="phone"><i class="fas fa-phone"></i> (212) 555-5678</p>
+                    <div class="services">
+                        <h4>Services:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Prescription Filling</li>
+                            <li><i class="fas fa-check"></i> Immunizations</li>
+                            <li><i class="fas fa-check"></i> Health Consultations</li>
+                            <li><i class="fas fa-check"></i> Home Delivery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pharmacy-actions">
+                    <button class="btn-primary transfer-btn">Transfer Prescription</button>
+                    <button class="btn-secondary refill-btn">Refill Prescription</button>
+                    <button class="btn-tertiary contact-btn">Contact Pharmacy</button>
+                </div>
+            </div>
+            <!-- More pharmacy cards would follow the same pattern -->
+            <div class="pharmacy-card">
+                <div class="pharmacy-image">
+                    <img src="images/pharmacy2.jpg" alt="City Health Pharmacy">
+                    <span class="open-status open">Open Now</span>
+                </div>
+                <div class="pharmacy-info">
+                    <h3>City Health Pharmacy</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5 (87 reviews)</span>
+                    </div>
+                    <p class="address"><i class="fas fa-map-marker-alt"></i> 456 Health Street, New York, NY 10002</p>
+                    <p class="hours"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 10:00 PM, Sat-Sun: 9:00 AM - 8:00 PM</p>
+                    <p class="phone"><i class="fas fa-phone"></i> (212) 555-5678</p>
+                    <div class="services">
+                        <h4>Services:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Prescription Filling</li>
+                            <li><i class="fas fa-check"></i> Immunizations</li>
+                            <li><i class="fas fa-check"></i> Health Consultations</li>
+                            <li><i class="fas fa-check"></i> Home Delivery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pharmacy-actions">
+                    <button class="btn-primary transfer-btn">Transfer Prescription</button>
+                    <button class="btn-secondary refill-btn">Refill Prescription</button>
+                    <button class="btn-tertiary contact-btn">Contact Pharmacy</button>
+                </div>
+            </div>
+<!-- More pharmacy cards would follow the same pattern -->
+            <div class="pharmacy-card">
+                <div class="pharmacy-image">
+                    <img src="images/pharmacy1.jpg" alt="Widama Pharmacy">
+                    <span class="open-status open">Open Now</span>
+                </div>
+                <div class="pharmacy-info">
+                    <h3>Widama Pharmacy</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5 (87 reviews)</span>
+                    </div>
+                    <p class="address"><i class="fas fa-map-marker-alt"></i> 456 Health Street, New York, NY 10002</p>
+                    <p class="hours"><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 10:00 PM, Sat-Sun: 9:00 AM - 8:00 PM</p>
+                    <p class="phone"><i class="fas fa-phone"></i> (212) 555-5678</p>
+                    <div class="services">
+                        <h4>Services:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Prescription Filling</li>
+                            <li><i class="fas fa-check"></i> Immunizations</li>
+                            <li><i class="fas fa-check"></i> Health Consultations</li>
+                            <li><i class="fas fa-check"></i> Home Delivery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pharmacy-actions">
+                    <button class="btn-primary transfer-btn">Transfer Prescription</button>
+                    <button class="btn-secondary refill-btn">Refill Prescription</button>
+                    <button class="btn-tertiary contact-btn">Contact Pharmacy</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="prescription-section">
+        <div class="container">
+            <div class="prescription-card">
+                <div class="prescription-icon">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                </div>
+                <div class="prescription-content">
+                    <h3>Manage Your Prescriptions</h3>
+                    <p>Upload your prescription or connect with your doctor to send prescriptions directly to your chosen pharmacy.</p>
+                    <div class="prescription-actions">
+                        <button class="btn-primary upload-btn">
+                            <i class="fas fa-upload"></i> Upload Prescription
+                        </button>
+                        <button class="btn-secondary request-btn">
+                            <i class="fas fa-envelope"></i> Request from Doctor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <!-- Common Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="images/dasmedhub-logo.png" alt="Footer Logo" class="footer-logo">
+                    <p>Connecting Patients, Accelerating Healing</p>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> support@dasmedhub.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/DASmedhub/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/dasmedhub"><i class="fab fa-twitter"></i></a>
+                        <!--<a href="#"><i class="fab fa-instagram"></i></a>-->
+                        <a href="https://www.linkedin.com/company/das-medhub"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 DAS medhub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="pages.js"></script>
+    <!-- Page-specific scripts will be included here -->
+</body>
+</html>

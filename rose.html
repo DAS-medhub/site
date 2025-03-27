@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAS medhub - Virtual Health Assistant</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2a7fba;
+            --primary-dark: #1a5f8b;
+            --secondary: #4caf50;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-top: 90px; /* Added to account for fixed header */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .emergency-contact {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .emergency-contact i {
+            color: var(--danger);
+        }
+        
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .chat-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .chat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .chat-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .chat-overlay-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .chat-header i {
+            color: green;
+            font-size: 1.5rem;
+        }
+        
+        .chat-header h2 {
+            font-size: 1.3rem;
+            color: green;
+        }
+        
+        .chat-iframe {
+            flex-grow: 1;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .resources-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .hospital-icon {
+            background-color: var(--danger);
+        }
+        
+        .doctor-icon {
+            background-color: var(--primary);
+        }
+        
+        .pharmacy-icon {
+            background-color: var(--secondary);
+        }
+        
+        .resource-header h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .resource-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3d8b40;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .disclaimer {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .disclaimer h4 {
+            color: #d4a017;
+            margin-bottom: 10px;
+        }
+        
+        .disclaimer p {
+            color: #856404;
+            font-size: 0.9rem;
+        }
+
+    /* Auth Modal Styles */
+    .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .auth-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .auth-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .auth-tab:hover:not(.active) {
+            color: var(--primary-dark);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .auth-form input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(42, 127, 186, 0.2);
+        }
+        
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .auth-error {
+            color: var(--danger);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .auth-switch a {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .auth-switch a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        /* User Profile Styles */
+        .user-profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .profile-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            width: 200px;
+            z-index: 100;
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        .profile-dropdown.active {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--light-gray);
+            margin: 5px 0;
+        }
+        
+        /* Close button for modal */
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="DAS Medhub Logo" />
+            </div>
+            <div id="userProfile" class="user-profile" style="display: none;">
+                <div class="avatar" id="userAvatar"></div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="dropdown-item" id="userEmail"></div>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <section class="chat-container">
+                <div class="chat-overlay" id="chatOverlay">
+                    <div class="chat-overlay-content">
+                        <h3>Continue with Rose</h3>
+                        <p>To get personalized health assistance and save your chat history, please sign in or create an account.</p>
+                        <button id="continueChatBtn" class="btn btn-primary">
+                            Continue with Rose
+                        </button>
+                        <p style="margin-top: 10px; font-size: 0.8rem;">
+                            You can try Rose without an account, but your chat won't be saved.
+                        </p>
+                    </div>
+                </div>
+                <div class="chat-header">
+                    <i class="fas fa-robot"></i>
+                    <h2>Meet Rose, Your Health AI Assistant</h2>
+                </div>
+                <div class="chat-iframe">
+                    <iframe
+                        src="https://www.chatbase.co/chatbot-iframe/l7Wo86G6EbxVNL52pFqYz"
+                        width="100%"
+                        height="100%"
+                        style="min-height: 600px; border: none; border-radius: 8px;"
+                        frameborder="0"
+                        id="chatIframe"
+                    ></iframe>
+                </div>
+                <p style="text-align: center; color: var(--gray); font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Rose is here to help assess your symptoms and help you take the right decision.
+                </p>
+            </section>
+            
+            <section class="resources-container">
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon hospital-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h3>Hospital Locator</h3>
+                    </div>
+                    <div class="resource-content">
+                        <p>Find the nearest hospitals and emergency care centers based on your location and medical needs.</p>
+                        <button id="hospitalBtn" class="btn btn-danger">
+                            <i class="fas fa-map-marker-alt"></i> Find Hospitals
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon doctor-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Health Specialists</h3>
+                    </div>
+                    <div class="resource-content">
+                        <p>Connect with qualified doctors and specialists for virtual consultations or in-person appointments.</p>
+                        <button id="specialistBtn" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Find Specialists
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon pharmacy-icon">
+                            <i class="fas fa-prescription-bottle-alt"></i>
+                        </div>
+                        <h3>Pharmacy Finder</h3>
+                    </div>
+                    <div class="resource-content">
+                        <p>Locate nearby pharmacies, check medication availability, and get prescription refills.</p>
+                        <button id="pharmacyBtn" class="btn btn-success">
+                            <i class="fas fa-pills"></i> Find Pharmacies
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <div class="disclaimer">
+            <h4><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h4>
+            <p>Rose is designed to provide symptoms Assessment, first aid information and help direct you to the right care. Rose is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-container">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="loginTab">Login</div>
+                <div class="auth-tab" id="signupTab">Sign Up</div>
+            </div>
+            
+            <div id="loginForm" class="auth-form active">
+                <div id="loginError" class="auth-error"></div>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button id="loginBtn" class="btn btn-primary">Log In</button>
+                <div class="auth-switch">
+                    Don't have an account? <a id="switchToSignup">Sign up</a>
+                </div>
+            </div>
+            
+            <div id="signupForm" class="auth-form">
+                <div id="signupError" class="auth-error"></div>
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" required>
+                <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                <div class="auth-switch">
+                    Already have an account? <a id="switchToLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 HealthFirst AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkAcHTfPVGzaR-aCJ6SdWIa8Z-I2nZHHA",
+            authDomain: "das-medhub.firebaseapp.com",
+            projectId: "das-medhub",
+            storageBucket: "das-medhub.firebasestorage.app",
+            messagingSenderId: "187749903773",
+            appId: "1:187749903773:web:aff296fab3e11513019374",
+            measurementId: "G-K3HRBYDYK9"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        // DOM Elements
+        const authModal = document.getElementById('authModal');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginEmail = document.getElementById('loginEmail');
+        const loginPassword = document.getElementById('loginPassword');
+        const signupName = document.getElementById('signupName');
+        const signupEmail = document.getElementById('signupEmail');
+        const signupPassword = document.getElementById('signupPassword');
+        const loginError = document.getElementById('loginError');
+        const signupError = document.getElementById('signupError');
+        const closeModal = document.getElementById('closeModal');
+        const userProfile = document.getElementById('userProfile');
+        const userAvatar = document.getElementById('userAvatar');
+        const userEmail = document.getElementById('userEmail');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const chatOverlay = document.getElementById('chatOverlay');
+        const continueChatBtn = document.getElementById('continueChatBtn');
+        const chatIframe = document.getElementById('chatIframe');
+        
+        // User interaction tracking
+        let hasInteracted = false;
+        let interactionTimer;
+        
+        // Track interactions with the iframe
+        function setupChatInteraction() {
+            // This is a workaround since we can't directly detect iframe interactions due to same-origin policy
+            // In a real implementation, you might use postMessage or other techniques
+            
+            // Track mouse movement near the iframe
+            chatIframe.addEventListener('mouseenter', () => {
+                if (!hasInteracted && !auth.currentUser) {
+                    interactionTimer = setTimeout(() => {
+                        chatOverlay.classList.add('active');
+                    }, 3000); // Show overlay after 3 seconds of hovering
+                }
+            });
+            
+            chatIframe.addEventListener('mouseleave', () => {
+                clearTimeout(interactionTimer);
+            });
+            
+            // Track clicks on the iframe
+            document.addEventListener('click', (e) => {
+                if (e.target === chatIframe && !hasInteracted && !auth.currentUser) {
+                    chatOverlay.classList.add('active');
+                    hasInteracted = true;
+                }
+            });
+        }
+        
+        // Switch between login and signup tabs
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+            loginError.textContent = '';
+        });
+        
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.classList.add('active');
+            loginForm.classList.remove('active');
+            signupError.textContent = '';
+        });
+        
+        switchToSignup.addEventListener('click', () => {
+            signupTab.click();
+        });
+        
+        switchToLogin.addEventListener('click', () => {
+            loginTab.click();
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            authModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+        
+        // Profile dropdown toggle
+        userAvatar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', () => {
+            profileDropdown.classList.remove('active');
+        });
+        
+        // Continue chat button
+        continueChatBtn.addEventListener('click', () => {
+            authModal.style.display = 'flex';
+            chatOverlay.classList.remove('active');
+        });
+        
+        // Login function
+        loginBtn.addEventListener('click', () => {
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User logged in successfully
+                    authModal.style.display = 'none';
+                    updateUserProfile(userCredential.user);
+                })
+                .catch((error) => {
+                    loginError.textContent = error.message;
+                });
+        });
+        
+        // Signup function
+        signupBtn.addEventListener('click', () => {
+            const email = signupEmail.value;
+            const password = signupPassword.value;
+            const name = signupName.value;
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User created successfully
+                    return userCredential.user.updateProfile({
+                        displayName: name
+                    });
+                })
+                .then(() => {
+                    authModal.style.display = 'none';
+                    updateUserProfile(auth.currentUser);
+                })
+                .catch((error) => {
+                    signupError.textContent = error.message;
+                });
+        });
+        
+        // Logout function
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                userProfile.style.display = 'none';
+                chatOverlay.classList.add('active');
+            });
+        });
+        
+        // Update user profile in header
+        function updateUserProfile(user) {
+            if (user) {
+                // Get initials from email if displayName not available
+                let initials = '';
+                if (user.displayName) {
+                    initials = user.displayName.split(' ').map(n => n[0]).join('').toUpperCase();
+                } else {
+                    initials = user.email.substring(0, 2).toUpperCase();
+                }
+                
+                userAvatar.textContent = initials;
+                userEmail.textContent = user.email;
+                userProfile.style.display = 'flex';
+                chatOverlay.classList.remove('active');
+            }
+        }
+        
+        // Check auth state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                updateUserProfile(user);
+            } else {
+                // User is signed out
+                userProfile.style.display = 'none';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupChatInteraction();
+            
+            // Check if user is already logged in
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    // Don't show immediately - let them interact first
+                }
+            });
+            
+            // Your existing button event listeners
+            document.getElementById('hospitalBtn').addEventListener('click', function() {
+                window.location.href = 'hospitals.html';
+            });
+            
+            document.getElementById('specialistBtn').addEventListener('click', function() {
+                window.location.href = 'specialists.html';
+            });
+            
+            document.getElementById('pharmacyBtn').addEventListener('click', function() {
+                window.location.href = 'pharmacies.html';
+            });
+        });
+    </script>
+</body>
+</html>

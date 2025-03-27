@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hospitals</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="Virtual Health Assistant Logo">
+               <!-- <h1>Virtual Health Assistant</h1>-->
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="specialists.html">Health Specialists</a></li>
+                    <li><a href="hospitals.html">Hospitals</a></li>
+                    <li><a href="pharmacies.html">Pharmacies</a></li>
+                    <li><a href="#" class="btn-primary">My Account</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page-specific content will go here -->
+
+    <!-- Insert after header in the main structure -->
+<main class="hospitals-page">
+    <section class="hero">
+        <div class="container">
+            <h2>Recommended Hospitals</h2>
+            <p>Based on your symptoms, we recommend these healthcare facilities that can provide the care you need.</p>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container">
+                <!-- This would be replaced with actual map integration (Google Maps API) -->
+                <div class="map-placeholder">
+                    <img src="images/Interactive-Google-Maps.png" alt="Hospital locations map">
+                    <div class="map-marker" style="top: 30%; left: 40%;" data-hospital="ny-medical"></div>
+                    <!-- More markers -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hospitals-list">
+        <div class="container">
+            <div class="hospital-card">
+                <div class="hospital-image">
+                    <img src="images/hospital3.jpg" alt="New York Medical Center">
+                    <span class="emergency">24/7 Emergency</span>
+                </div>
+                <div class="hospital-info">
+                    <h3>New York Medical Center</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.2 (342 reviews)</span>
+                    </div>
+                    <p class="address"><i class="fas fa-map-marker-alt"></i> 123 Medical Drive, New York, NY 10001</p>
+                    <p class="phone"><i class="fas fa-phone"></i> (212) 555-1234</p>
+                    <div class="services">
+                        <h4>Services Offered:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Emergency Care</li>
+                            <li><i class="fas fa-check"></i> Cardiology</li>
+                            <li><i class="fas fa-check"></i> Radiology</li>
+                            <li><i class="fas fa-check"></i> Maternity</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hospital-actions">
+                    <button class="btn-primary book-btn">Book Appointment</button>
+                    <button class="btn-secondary directions-btn">Get Directions</button>
+                    <button class="btn-tertiary more-info-btn">More Information</button>
+                </div>
+            </div>
+               
+            <!-- More hospital cards would follow the same pattern -->
+
+            <!-- Additional Hospital Entries -->
+<div class="hospital-card">
+    <div class="hospital-image">
+        <img src="images/hospital1.jpg" alt="Los Angeles General Hospital">
+        <span class="emergency">24/7 Emergency</span>
+    </div>
+    <div class="hospital-info">
+        <h3>Los Angeles General Hospital</h3>
+        <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <i class="far fa-star"></i>
+            <span>4.0 (289 reviews)</span>
+        </div>
+        <p class="address"><i class="fas fa-map-marker-alt"></i> 456 Health Avenue, Los Angeles, CA 90001</p>
+        <p class="phone"><i class="fas fa-phone"></i> (213) 555-6789</p>
+        <div class="services">
+            <h4>Services Offered:</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> Neurology</li>
+                <li><i class="fas fa-check"></i> Pediatrics</li>
+                <li><i class="fas fa-check"></i> Oncology</li>
+                <li><i class="fas fa-check"></i> Trauma Care</li>
+            </ul>
+        </div>
+    </div>
+    <div class="hospital-actions">
+        <button class="btn-primary book-btn">Book Appointment</button>
+        <button class="btn-secondary directions-btn">Get Directions</button>
+        <button class="btn-tertiary more-info-btn">More Information</button>
+    </div>
+</div>
+
+<div class="hospital-card">
+    <div class="hospital-image">
+        <img src="images/hospital2.jpg" alt="London Royal Hospital">
+        <span class="emergency">24/7 Emergency</span>
+    </div>
+    <div class="hospital-info">
+        <h3>London Royal Hospital</h3>
+        <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>4.3 (378 reviews)</span>
+        </div>
+        <p class="address"><i class="fas fa-map-marker-alt"></i> 789 Healthcare Rd, London, UK</p>
+        <p class="phone"><i class="fas fa-phone"></i> +44 20 7946 0958</p>
+        <div class="services">
+            <h4>Services Offered:</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> Orthopedics</li>
+                <li><i class="fas fa-check"></i> Cardiac Surgery</li>
+                <li><i class="fas fa-check"></i> Dermatology</li>
+                <li><i class="fas fa-check"></i> Physiotherapy</li>
+            </ul>
+        </div>
+    </div>
+    <div class="hospital-actions">
+        <button class="btn-primary book-btn">Book Appointment</button>
+        <button class="btn-secondary directions-btn">Get Directions</button>
+        <button class="btn-tertiary more-info-btn">More Information</button>
+    </div>
+</div>
+
+        </div>
+    </section>
+
+    <section class="emergency-section">
+        <div class="container">
+            <div class="emergency-card">
+                <div class="emergency-icon">
+                    <i class="fas fa-ambulance"></i>
+                </div>
+                <div class="emergency-content">
+                    <h3>Need Immediate Care?</h3>
+                    <p>If you're experiencing a medical emergency, please call 911 or go to the nearest emergency room.</p>
+                    <button class="btn-alert emergency-call-btn">
+                        <i class="fas fa-phone"></i> Call 911
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <!-- Common Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="images/dasmedhub-logo.png" alt="Footer Logo" class="footer-logo">
+                    <p>Connecting Patients, Accelerating Healing</p>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> support@dasmedhub.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/DASmedhub/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/dasmedhub"><i class="fab fa-twitter"></i></a>
+                        <!--<a href="#"><i class="fab fa-instagram"></i></a>-->
+                        <a href="https://www.linkedin.com/company/das-medhub"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 DAS medhub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="pages.js"></script>
+    <!-- Page-specific scripts will be included here -->
+</body>
+</html>
