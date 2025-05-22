@@ -7,40 +7,46 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="video-modal.css">
 </head>
 <body>
-    <!-- Header -->
-    
-  <!-- Header -->
-<header>
-    <div class="container header-content">
-        <div class="logo">
-            <img src="images/dasmedhub-logo.png" alt="DAS Medhub Logo" />
-        </div>
-        
-        <div class="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        
-        <nav class="nav-links">
-            <!--<a href="#features">Features</a>-->
-            <a href="#problem">Problem</a>
-            <a href="#features">Solution</a>
-            <a href="#team">Team</a>
-            <a href="https://das-medhub.github.io/models/">models</a>
-            <a href="mailto:dasmedhub@outlook.com">Contact</a>
-        </nav>
-        
-        <div class="cta-buttons">
-            <a href="https://das-medhub.github.io/models/" class="btn btn-outline">Our Models</a>
-            <a href="land.html" class="btn btn-primary">Get Started</a>
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
-</header>
+
+    <!-- Your existing header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="images/dasmedhub-logo.png" alt="DAS Medhub Logo" />
+            </div>
+            
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#problem">Problem</a>
+                <a href="#features">Solution</a>
+                <a href="#team">Team</a>
+                <a href="https://das-medhub.github.io/models/">models</a>
+                <a href="mailto:dasmedhub@outlook.com">Contact</a>
+            </nav>
+            
+            <div class="cta-buttons">
+                <a href="https://das-medhub.github.io/models/" class="btn btn-outline">Our Models</a>
+                <a href="land.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
     
-    <!-- Hero Section -->
+    <!-- Hero Section (modified YouTube link) -->
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text">
@@ -50,7 +56,7 @@
                
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-primary">Get the App</a>
-                    <a href="https://youtu.be/lPrdzKB3Im4?si=QIzdqr1Tg1c5WymO" class="btn btn-outline"><i class="fas fa-play-circle"></i> Watch Demo</a>
+                    <a href="#" class="btn btn-outline watch-video" data-video-id="lPrdzKB3Im4"><i class="fas fa-play-circle"></i> Watch Demo</a>
                 </div>
                 <div class="trust-badges">
                     <div class="badge-item"><i class="fas fa-shield-alt"></i> HIPAA Compliant</div>
@@ -172,7 +178,7 @@
         </div>
     </section>
     
-    <!-- Avatar Section -->
+   <!-- Avatar Section (modified YouTube link) -->
     <section id="avatar" class="avatar-section">
         <div class="container">
             <div class="section-heading">
@@ -188,7 +194,7 @@
                 
                 <div class="demo-links">
                     <a href="land.html" class="btn btn-primary">Try Rose Now</a>
-                    <a href="https://youtu.be/Tjv44Dr680A?si=F5FWW7DpWsBjoeS-" class="btn btn-outline">Watch Demo</a>
+                    <a href="#" class="btn btn-outline watch-video" data-video-id="Tjv44Dr680A"><i class="fas fa-play-circle"></i> Watch Demo</a>
                 </div>
             </div>
         </div>
@@ -394,6 +400,7 @@
     </footer>
 
     <script src="das.js"></script>
+    <script src="video-modal.js"></script>
 </body>
 </html>
                 
