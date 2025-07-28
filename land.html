@@ -44,28 +44,19 @@
         }
 
         header {
-            text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: flex-start;
         }
 
         .logo {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 5px 15px rgba(91, 107, 240, 0.1);
+            max-width: 180px;
+            transition: var(--transition);
         }
 
-        .logo i {
-            color: var(--accent-color);
-            font-size: 1.8rem;
+        .logo img {
+            width: 100%;
+            height: auto;
         }
 
         .maintenance-container {
@@ -360,6 +351,10 @@
                 padding: 1.5rem;
             }
             
+            .logo {
+                max-width: 140px;
+            }
+            
             .maintenance-container {
                 padding: 3rem 1.5rem;
             }
@@ -386,6 +381,35 @@
             .features {
                 grid-template-columns: 1fr;
             }
+            
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 120px;
+            }
+            
+            .maintenance-container {
+                padding: 2.5rem 1.25rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .alert-banner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .alert-content {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -395,7 +419,6 @@
             <div class="logo">
                 <img src="images/dasmedhub-logo.png" alt="DAS Medhub Logo" />
             </div>
-            
         </header>
 
         <div class="maintenance-container">
