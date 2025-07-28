@@ -162,8 +162,8 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            min-height: 80vh;
-            height: 80vh;
+            min-height: 85vh;
+            height: 85vh;
         }
 
         .chat-overlay {
@@ -233,7 +233,7 @@
             position: relative;
             border: 1px solid var(--light-gray);
             background: white;
-            height: calc(100% - 60px);
+            height: calc(100% - 20px);
             display: flex;
             flex-direction: column;
         }
@@ -259,12 +259,11 @@
         }
 
         .chat-info {
-            margin-top: 12px;
-            font-size: 0.9rem;
+            margin-top: 8px;
+            font-size: 0.75rem;
             color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            text-align: center;
+            padding: 4px;
         }
 
         .auth-modal {
@@ -412,35 +411,6 @@
             background-color: var(--light-gray);
         }
 
-        .disclaimer {
-            background-color: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 12px;
-            margin-top: 24px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .disclaimer h4 {
-            color: #d4a017;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
-        .disclaimer p {
-            font-size: 0.85rem;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 32px;
-            padding: 16px;
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
@@ -486,8 +456,8 @@
             }
 
             .chat-container {
-                min-height: 70vh;
-                height: 70vh;
+                min-height: 80vh;
+                height: 80vh;
             }
 
             .btn {
@@ -508,8 +478,8 @@
 
             .chat-container {
                 padding: 8px;
-                min-height: 65vh;
-                height: 65vh;
+                min-height: 75vh;
+                height: 75vh;
             }
 
             .chat-overlay-content {
@@ -626,15 +596,10 @@
                     ></iframe>
                 </div>
                 <p class="chat-info">
-                    <i class="fas fa-info-circle"></i> Rose helps assess symptoms and guide you to appropriate care.
+                    <i class="fas fa-info-circle"></i> Rose provides symptom assessment and first aid information but is not a substitute for professional medical advice.
                 </p>
             </section>
         </main>
-
-        <div class="disclaimer">
-            <h4><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h4>
-            <p>Rose provides symptom assessment and first aid information but is not a substitute for professional medical advice. Always consult a qualified healthcare provider for medical concerns.</p>
-        </div>
     </div>
 
     <div id="authModal" class="auth-modal">
@@ -671,10 +636,6 @@
             </div>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2025 DAS medhub. All rights reserved.</p>
-    </footer>
 
     <script>
         // Initialize Firebase
