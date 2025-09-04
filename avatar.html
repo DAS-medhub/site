@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAS MedHub - Virtual Health Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --light-bg: #f8fafc;
+            --light-border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --ai-bubble: #f0f7ff;
+            --user-bubble: #dcf8c6;
+            --sidebar-width: 300px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Header/Navigation */
+        .header {
+            background: white;
+            padding: 12px 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .nav-title {
+            margin-left: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--light-border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease, width 0.3s ease;
+        }
+        
+        .sidebar.is-closed {
+            width: 0;
+            overflow: hidden;
+            border-right: none;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .new-chat-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+        
+        .conversation-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--light-border);
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .conversation-item:hover {
+            background-color: var(--light-bg);
+        }
+        
+        .conversation-item.active {
+            background-color: var(--ai-bubble);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .conversation-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .conversation-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .conversation-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .conversation-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .delete-conversation {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.2s, background-color 0.2s;
+        }
+        
+        .conversation-item:hover .delete-conversation {
+            opacity: 1;
+        }
+        
+        .delete-conversation:hover {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        /* Main Chat Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: white;
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-title-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        #chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            overflow: hidden;
+        }
+        
+        #messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: #fafafa;
+        }
+        
+        .message-row {
+            display: flex;
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ai .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .ai .message {
+            background-color: var(--ai-bubble);
+            border-top-left-radius: 4px;
+            color: var(--text-primary);
+        }
+        
+        .user {
+            justify-content: flex-end;
+        }
+        
+        .user .message {
+            background-color: var(--user-bubble);
+            border-top-right-radius: 4px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-align: right;
+        }
+        
+        /* Input Area */
+        #input-container {
+            display: flex;
+            padding: 16px;
+            border-top: 1px solid var(--light-border);
+            background: white;
+            align-items: flex-end;
+        }
+        
+        #user-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--light-border);
+            border-radius: 24px;
+            resize: none;
+            max-height: 120px;
+            font-family: inherit;
+            font-size: 15px;
+            line-height: 1.4;
+            transition: border-color 0.2s;
+        }
+        
+        #user-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        #send-btn {
+            margin-left: 10px;
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        #send-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background-color: var(--ai-bubble);
+            border-radius: 18px;
+            border-top-left-radius: 4px;
+            max-width: 100px;
+            margin-bottom: 16px;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            float: left;
+            margin: 0 1px;
+            background-color: #9E9EA1;
+            display: block;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+        
+        .typing-indicator span:nth-of-type(1) {
+            animation: typing 1s infinite;
+        }
+        
+        .typing-indicator span:nth-of-type(2) {
+            animation: typing 1s 0.33s infinite;
+        }
+        
+        .typing-indicator span:nth-of-type(3) {
+            animation: typing 1s 0.66s infinite;
+        }
+        
+        @keyframes typing {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+        
+        /* Empty state for sidebar */
+        .empty-conversations {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        /* Delete confirmation modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .modal-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .modal-btn-cancel {
+            background-color: var(--light-bg);
+            color: var(--text-primary);
+        }
+        
+        .modal-btn-cancel:hover {
+            background-color: var(--light-border);
+        }
+        
+        .modal-btn-confirm {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .modal-btn-confirm:hover {
+            background-color: #dc2626;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 968px) {
+            .sidebar {
+                position: absolute;
+                height: calc(100% - 64px);
+                z-index: 100;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.is-open {
+                transform: translateX(0);
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+            
+            .delete-conversation {
+                opacity: 1; /* Always show delete button on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="dasmedhub-logo.png" alt="DAS MedHub Logo" class="logo">
+           <!-- <div class="nav-title">DAS MedHub</div>-->
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Services</a>
+            <a href="#" class="nav-link">Find Doctors</a>
+            <a href="#" class="nav-link">Emergency</a>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Sidebar for conversation history -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" id="new-chat-btn">
+                    <i class="fas fa-plus"></i> New Conversation
+                </button>
+            </div>
+            <div class="conversations-list" id="conversations-list">
+                <div class="empty-conversations" id="empty-conversations">
+                    <i class="fas fa-comment-medical" style="font-size: 24px; margin-bottom: 10px;"></i>
+                    <p>No conversations yet</p>
+                    <p>Start a new conversation to get help</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main chat area -->
+        <div class="main-container">
+            <div class="chat-header">
+                <div class="chat-title-container">
+                    <button class="toggle-sidebar" id="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="chat-title">Rose - Virtual Health Assistant</div>
+                    <div class="status-indicator"></div>
+                </div>
+            </div>
+            
+            <div id="chat-container">
+                <div id="messages">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div id="input-container">
+                    <textarea id="user-input" rows="1" placeholder="Type your message..."></textarea>
+                    <button id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal">
+            <div class="modal-title">Delete Conversation</div>
+            <p>Are you sure you want to delete this conversation? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="cancel-delete">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyB8Oj7UA62CkR8TOn-Y_10KR6N4cWq5g0Y';
+        const MODEL = 'gemini-1.5-flash-latest';
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+
+        const systemPrompt = `You are Rose, a warm and empathetic virtual health assistant. 
+Your primary role is to triage patients by assessing their symptoms and providing preliminary diagnostic suggestions and recommendations.  
+
+Conversation Rules:
+1. Start every conversation with a friendly introduction:
+   "Hi, I'm Rose, your virtual health assistant. How are you feeling today?"
+
+2. Collect basic details gradually, asking no more than two details per question. 
+   Example: "Can you share your name and age?" 
+   If the user expresses discomfort, acknowledge it with empathy:
+   "I'm sorry to hear that. Let's go through this together so I can assist you better."
+
+3. Gather symptoms step by step using short, clear questions. 
+   Use the patient's responses to guide follow-ups. 
+   Examples: "Is the pain sharp or dull?" or "How long have you been feeling this way?"
+
+4. Analyze symptoms and provide concise, empathetic feedback. 
+   Example: "From what you've shared, this may be a mild cold or flu, but I recommend confirming with a healthcare provider."
+
+5. Provide severity-based recommendations:
+   - Mild symptoms: "This might be manageable with over-the-counter remedies. A pharmacist can guide you further. You can also check our page for nearby options."
+   - Moderate symptoms: "Based on your symptoms, it's best to consult a specialist. You can find one on our page."
+   - Severe symptoms: "This seems urgent. Please visit a hospital immediately. You can access hospitals on our page."
+
+6. Supportive guidance: Give short, practical tips (rest, hydration). Always remind users that your suggestions are preliminary.
+   Example: "Rest and hydration may help for now. If symptoms worsen, please consult a doctor."
+
+7. Stay compassionate and engaging. If information is vague, politely ask for more details:
+   "Could you tell me more about how you're feeling? This will help me assist you better."
+
+8. Fallback response: If symptoms are unclear:
+   "I can't provide a clear assessment based on the details shared. Please see a healthcare provider for further evaluation."
+
+9. Offer relevant educational resources briefly:
+   Example: "Would you like some tips on managing your symptoms at home?"
+
+10. Always end positively:
+   "Thank you for allowing me to assist you. I hope you feel better soon!"
+
+Restrictions:
+- Do not mention training data.
+- Do not answer unrelated questions. If asked about non-health topics, redirect politely:
+  "I'm here to help you with your health today. Could you tell me more about how you're feeling?"
+- Stay focused only on health triage.`;
+
+        const initialGreeting = "Hi, I'm Rose, your virtual health assistant. How are you feeling today?";
+
+        // Conversation management
+        let conversations = JSON.parse(localStorage.getItem('medhub_conversations')) || [];
+        let currentConversationId = null;
+        let conversationHistory = [];
+        let conversationToDelete = null;
+
+        // DOM elements
+        const messagesDiv = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.querySelector('.typing-indicator');
+        const conversationsList = document.getElementById('conversations-list');
+        const emptyConversations = document.getElementById('empty-conversations');
+        const newChatBtn = document.getElementById('new-chat-btn');
+        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        const deleteModal = document.getElementById('delete-modal');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        const confirmDeleteBtn = document.getElementById('confirm-delete');
+
+        // Base64 encoded placeholder image for Rose's avatar (a simple rose icon)
+        const roseAvatar = "rose.png";
+
+        // Helper function to check screen size
+        const isSmallScreen = () => window.innerWidth <= 968;
+
+        // Initialize the app
+        function initApp() {
+            renderConversationsList();
+            
+            // If there are existing conversations, load the most recent one
+            if (conversations.length > 0) {
+                loadConversation(conversations[0].id);
+            } else {
+                // Otherwise, create a new conversation
+                createNewConversation();
+            }
+        }
+
+        // Create a new conversation
+        function createNewConversation() {
+            const newConversation = {
+                id: Date.now().toString(),
+                title: 'New Conversation',
+                createdAt: new Date().toISOString(),
+                messages: []
+            };
+            
+            conversations.unshift(newConversation);
+            saveConversations();
+            renderConversationsList();
+            loadConversation(newConversation.id);
+        }
+
+        // Load a conversation
+        function loadConversation(conversationId) {
+            // Clear current messages
+            messagesDiv.innerHTML = '';
+            messagesDiv.appendChild(typingIndicator);
+            
+            // Find the conversation
+            const conversation = conversations.find(c => c.id === conversationId);
+            if (!conversation) return;
+            
+            currentConversationId = conversationId;
+            
+            // Update active state in the list
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.id === conversationId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Load messages
+            if (conversation.messages.length > 0) {
+                conversation.messages.forEach(msg => {
+                    addMessage(msg.text, msg.isUser);
+                });
+                
+                // Rebuild conversation history for API
+                conversationHistory = conversation.messages.map(msg => ({
+                    role: msg.isUser ? "user" : "model",
+                    parts: [{ text: msg.text }]
+                }));
+            } else {
+                // Show typing indicator for initial greeting
+                typingIndicator.style.display = 'flex';
+                
+                // For new conversations, add the initial greeting after a delay
+                setTimeout(() => {
+                    typingIndicator.style.display = 'none';
+                    
+                    // Add the greeting to the UI
+                    addMessage(initialGreeting, false);
+                    
+                    // Add the greeting to the conversation storage
+                    addMessageToConversation(initialGreeting, false);
+                    
+                    // Add to conversation history for API
+                    conversationHistory = [{
+                        role: "model",
+                        parts: [{ text: initialGreeting }]
+                    }];
+                }, 1000);
+            }
+        }
+
+        // Add a message to the current conversation
+        function addMessageToConversation(text, isUser) {
+            const conversation = conversations.find(c => c.id === currentConversationId);
+            if (!conversation) return;
+            
+            conversation.messages.push({
+                text,
+                isUser,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Update conversation title if it's the first user message
+            if (isUser && conversation.title === 'New Conversation') {
+                // Use first few words of the message as title
+                conversation.title = text.slice(0, 30) + (text.length > 30 ? '...' : '');
+                renderConversationsList();
+            }
+            
+            saveConversations();
+        }
+
+        // Delete a conversation
+        function deleteConversation(conversationId) {
+            // Remove the conversation from the array
+            conversations = conversations.filter(c => c.id !== conversationId);
+            
+            // Save to localStorage
+            saveConversations();
+            
+            // If we just deleted the current conversation
+            if (currentConversationId === conversationId) {
+                if (conversations.length > 0) {
+                    // Load the first conversation
+                    loadConversation(conversations[0].id);
+                } else {
+                    // Create a new conversation if none exist
+                    createNewConversation();
+                }
+            }
+            
+            // Update the UI
+            renderConversationsList();
+        }
+
+        // Save conversations to localStorage
+        function saveConversations() {
+            localStorage.setItem('medhub_conversations', JSON.stringify(conversations));
+        }
+
+        // Render the conversations list
+        function renderConversationsList() {
+            if (conversations.length === 0) {
+                emptyConversations.style.display = 'block';
+                conversationsList.innerHTML = '';
+                return;
+            }
+            
+            emptyConversations.style.display = 'none';
+            
+            conversationsList.innerHTML = '';
+            conversations.forEach(conversation => {
+                const lastMessage = conversation.messages.length > 0 
+                    ? conversation.messages[conversation.messages.length - 1].text
+                    : 'No messages yet';
+                
+                const item = document.createElement('div');
+                item.className = `conversation-item ${conversation.id === currentConversationId ? 'active' : ''}`;
+                item.dataset.id = conversation.id;
+                
+                const date = new Date(conversation.createdAt);
+                const formattedDate = date.toLocaleDateString();
+                
+                item.innerHTML = `
+                    <div class="conversation-content">
+                        <div class="conversation-title">${conversation.title}</div>
+                        <div class="conversation-preview">${lastMessage}</div>
+                        <div class="conversation-date">${formattedDate}</div>
+                    </div>
+                    <button class="delete-conversation" title="Delete conversation">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                item.addEventListener('click', (e) => {
+                    // Only load conversation if not clicking on delete button
+                    if (!e.target.closest('.delete-conversation')) {
+                        loadConversation(conversation.id);
+                    }
+                });
+                
+                const deleteBtn = item.querySelector('.delete-conversation');
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showDeleteModal(conversation.id);
+                });
+                
+                conversationsList.appendChild(item);
+            });
+        }
+
+        // Show delete confirmation modal
+        function showDeleteModal(conversationId) {
+            conversationToDelete = conversationId;
+            deleteModal.classList.add('active');
+        }
+
+        // Hide delete confirmation modal
+        function hideDeleteModal() {
+            deleteModal.classList.remove('active');
+            conversationToDelete = null;
+        }
+
+        // Add a message to the UI
+        function addMessage(text, isUser) {
+            const messageRow = document.createElement('div');
+            messageRow.classList.add('message-row', isUser ? 'user' : 'ai');
+            
+            if (!isUser) {
+                const avatarDiv = document.createElement('div');
+                avatarDiv.classList.add('avatar');
+                const avatarImg = document.createElement('img');
+                avatarImg.src = roseAvatar;
+                avatarImg.alt = "Rose";
+                avatarImg.classList.add('avatar-img');
+                avatarDiv.appendChild(avatarImg);
+                messageRow.appendChild(avatarDiv);
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.textContent = text;
+            
+            const timeSpan = document.createElement('div');
+            timeSpan.classList.add('message-time');
+            const now = new Date();
+            timeSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            messageDiv.appendChild(timeSpan);
+            messageRow.appendChild(messageDiv);
+            
+            messagesDiv.appendChild(messageRow);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Auto-resize textarea
+        userInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Send message function
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            addMessageToConversation(message, true);
+            
+            userInput.value = '';
+            userInput.style.height = 'auto';
+            
+            // Show typing indicator
+            typingIndicator.style.display = 'flex';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            conversationHistory.push({
+                role: "user",
+                parts: [{ text: message }]
+            });
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: conversationHistory,
+                        system_instruction: {
+                            parts: [{ text: systemPrompt }]
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                
+                // Hide typing indicator and show response
+                typingIndicator.style.display = 'none';
+                addMessage(aiResponse, false);
+                addMessageToConversation(aiResponse, false);
+
+                conversationHistory.push({
+                    role: "model",
+                    parts: [{ text: aiResponse }]
+                });
+            } catch (error) {
+                console.error(error);
+                typingIndicator.style.display = 'none';
+                addMessage('Sorry, there was an error processing your request. Please try again.', false);
+                addMessageToConversation('Sorry, there was an error processing your request. Please try again.', false);
+            }
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        newChatBtn.addEventListener('click', createNewConversation);
+        
+        toggleSidebarBtn.addEventListener('click', () => {
+            if (isSmallScreen()) {
+                sidebar.classList.toggle('is-open');
+            } else {
+                sidebar.classList.toggle('is-closed');
+            }
+        });
+        
+        // Close sidebar on outside click for small screens
+        document.addEventListener('click', (e) => {
+            if (isSmallScreen() && sidebar.classList.contains('is-open') &&
+                !sidebar.contains(e.target) && !toggleSidebarBtn.contains(e.target)) {
+                sidebar.classList.remove('is-open');
+            }
+        });
+        
+        // Clean up classes on resize
+        window.addEventListener('resize', () => {
+            if (isSmallScreen()) {
+                sidebar.classList.remove('is-closed');
+            } else {
+                sidebar.classList.remove('is-open');
+            }
+        });
+        
+        cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+        
+        confirmDeleteBtn.addEventListener('click', () => {
+            if (conversationToDelete) {
+                deleteConversation(conversationToDelete);
+                hideDeleteModal();
+            }
+        });
+        
+        // Close modal when clicking outside
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                hideDeleteModal();
+            }
+        });
+
+        // Initialize the app
+        initApp();
+    </script>
+</body>
+</html>
