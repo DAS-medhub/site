@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>DAS MedHub - Virtual Health Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -42,6 +42,7 @@
             height: 100vh;
             line-height: 1.6;
             overflow: hidden;
+            -webkit-overflow-scrolling: touch;
         }
         
         /* Glassmorphism header */
@@ -423,7 +424,7 @@
             color: var(--text-secondary);
         }
         
-        /* Enhanced input area - FIXED FOR MOBILE */
+        /* Enhanced input area - IMPROVED FOR MOBILE */
         #input-container {
             display: flex;
             flex-direction: column;
@@ -435,6 +436,46 @@
             gap: 12px;
             position: relative;
             min-height: auto;
+            flex-shrink: 0;
+        }
+        
+        .file-preview {
+            display: none;
+            padding: 10px;
+            background: rgba(253, 145, 80, 0.05);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(253, 145, 80, 0.1);
+            max-height: 100px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+            order: 1;
+        }
+        
+        .file-preview::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .file-preview::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .file-preview::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+        }
+        
+        .file-preview.show {
+            display: block;
+        }
+        
+        .input-row {
+            display: flex;
+            flex: 1;
+            position: relative;
+            min-height: 50px;
+            order: 2;
         }
         
         .input-wrapper {
@@ -458,7 +499,7 @@
         
         #user-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 16px 40px 16px;
             border: none;
             outline: none;
             resize: none;
@@ -473,13 +514,18 @@
         }
         
         .input-actions {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
             display: flex;
             align-items: center;
-            padding: 8px 12px;
+            padding: 0;
             gap: 6px;
-            border-top: 1px solid var(--light-border);
+            border-top: none;
             flex-wrap: wrap;
             justify-content: center;
+            background: transparent;
         }
         
         .input-btn {
@@ -519,7 +565,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(253, 145, 80, 0.3);
             flex-shrink: 0;
-            align-self: flex-end;
             position: absolute;
             bottom: 20px;
             right: 20px;
@@ -574,37 +619,6 @@
                 transform: translateY(-6px);
                 opacity: 1;
             }
-        }
-        
-        /* File upload area */
-        .file-preview {
-            display: none;
-            padding: 10px;
-            background: rgba(253, 145, 80, 0.05);
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(253, 145, 80, 0.1);
-            max-height: 100px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-        }
-        
-        .file-preview::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .file-preview::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .file-preview::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 2px;
-        }
-        
-        .file-preview.show {
-            display: block;
         }
         
         .preview-item {
@@ -851,7 +865,22 @@
             pointer-events: none;
         }
         
-        /* Responsive design - IMPROVED FOR MOBILE */
+        /* Responsive design - FIXED FOR MOBILE INPUT VISIBILITY */
+        @media (min-width: 769px) {
+            .input-row {
+                flex-direction: column;
+            }
+            
+            #send-btn {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                border-radius: 50%;
+                width: 44px;
+                height: 44px;
+            }
+        }
+        
         @media (max-width: 968px) {
             .sidebar {
                 position: absolute;
@@ -876,25 +905,35 @@
                 opacity: 1;
             }
             
-            /* Improved mobile input area */
+            /* Fixed mobile input area */
             #input-container {
                 padding: 12px;
                 gap: 8px;
+                min-height: 70px;
+            }
+            
+            .input-row {
+                flex-direction: row;
+                align-items: stretch;
+                min-height: 50px;
             }
             
             .input-wrapper {
-                border-radius: 16px;
+                border-radius: 20px 0 0 20px;
                 max-height: 120px;
+                flex: 1;
             }
             
             #user-input {
-                padding: 10px 12px;
+                padding: 10px 12px 50px 12px;
                 font-size: 14px;
                 max-height: 80px;
             }
             
             .input-actions {
-                padding: 6px 10px;
+                bottom: 4px;
+                left: 4px;
+                right: 4px;
                 gap: 4px;
             }
             
@@ -904,16 +943,26 @@
             }
             
             #send-btn {
-                width: 40px;
-                height: 40px;
-                bottom: 16px;
-                right: 16px;
+                position: relative;
+                bottom: auto;
+                right: auto;
+                border-radius: 0 20px 20px 0;
+                width: auto;
+                height: 100%;
+                min-width: 50px;
+                padding: 0 12px;
+                justify-content: center;
+                border-left: 1px solid var(--light-border);
+            }
+            
+            #send-btn i {
                 font-size: 14px;
             }
             
             .file-preview {
                 max-height: 80px;
                 padding: 8px;
+                width: 100%;
             }
             
             .preview-item {
@@ -961,14 +1010,25 @@
             /* Further mobile optimizations */
             #input-container {
                 padding: 10px;
+                gap: 6px;
+                min-height: 65px;
+            }
+            
+            .input-row {
+                min-height: 45px;
             }
             
             .input-actions {
-                justify-content: flex-start;
+                gap: 3px;
             }
             
             .input-btn {
                 padding: 4px;
+            }
+            
+            #send-btn {
+                min-width: 45px;
+                padding: 0 10px;
             }
             
             .message {
@@ -1032,23 +1092,30 @@
             
             #input-container {
                 padding: 8px;
-                gap: 6px;
+                gap: 4px;
+                min-height: 60px;
+            }
+            
+            .input-row {
+                min-height: 40px;
             }
             
             .input-wrapper {
-                border-radius: 14px;
+                border-radius: 18px 0 0 18px;
                 max-height: 100px;
             }
             
             #user-input {
-                padding: 8px 10px;
+                padding: 8px 10px 45px 10px;
                 font-size: 13px;
                 max-height: 60px;
             }
             
             .input-actions {
-                padding: 4px 8px;
-                gap: 3px;
+                bottom: 2px;
+                left: 2px;
+                right: 2px;
+                gap: 2px;
             }
             
             .input-btn {
@@ -1057,10 +1124,12 @@
             }
             
             #send-btn {
-                width: 36px;
-                height: 36px;
-                bottom: 12px;
-                right: 12px;
+                min-width: 40px;
+                border-radius: 0 18px 18px 0;
+                padding: 0 8px;
+            }
+            
+            #send-btn i {
                 font-size: 12px;
             }
             
@@ -1107,6 +1176,12 @@
         @media (max-height: 600px) {
             #input-container {
                 padding: 8px;
+                gap: 4px;
+                min-height: 55px;
+            }
+            
+            .input-row {
+                min-height: 35px;
             }
             
             .input-wrapper {
@@ -1115,18 +1190,20 @@
             
             #user-input {
                 max-height: 50px;
-                padding: 6px 10px;
+                padding-bottom: 40px;
             }
             
             .file-preview {
                 max-height: 50px;
             }
             
-            #send-btn {
-                width: 34px;
-                height: 34px;
-                bottom: 10px;
-                right: 10px;
+            .input-actions {
+                gap: 2px;
+            }
+            
+            .input-btn {
+                padding: 2px;
+                font-size: 12px;
             }
         }
         
@@ -1193,26 +1270,28 @@
                 
                 <div id="input-container">
                     <div class="file-preview" id="file-preview"></div>
-                    <div class="input-wrapper">
-                        <textarea id="user-input" rows="1" placeholder="Describe your symptoms or upload medical images/audio..."></textarea>
-                        <div class="input-actions">
-                            <button class="input-btn" id="image-btn" title="Upload image">
-                                <i class="fas fa-image"></i>
-                            </button>
-                            <button class="input-btn" id="video-btn" title="Upload video">
-                                <i class="fas fa-video"></i>
-                            </button>
-                            <button class="input-btn" id="audio-btn" title="Upload audio">
-                                <i class="fas fa-microphone"></i>
-                            </button>
-                            <button class="input-btn" id="voice-btn" title="Record voice">
-                                <i class="fas fa-microphone-alt"></i>
-                            </button>
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <textarea id="user-input" rows="1" placeholder="Describe your symptoms"></textarea>
+                            <div class="input-actions">
+                                <button class="input-btn" id="image-btn" title="Upload image">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button class="input-btn" id="video-btn" title="Upload video">
+                                    <i class="fas fa-video"></i>
+                                </button>
+                                <button class="input-btn" id="audio-btn" title="Upload audio">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                                <button class="input-btn" id="voice-btn" title="Record voice">
+                                    <i class="fas fa-microphone-alt"></i>
+                                </button>
+                            </div>
                         </div>
+                        <button id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
-                    <button id="send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -1824,17 +1903,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         // Auto-resize textarea
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
-            
-            // Adjust container height if needed
-            const inputContainer = document.getElementById('input-container');
-            const messagesContainer = document.getElementById('messages');
-            
-            if (this.scrollHeight > 50) {
-                messagesContainer.style.paddingBottom = '180px';
-            } else {
-                messagesContainer.style.paddingBottom = '24px';
-            }
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
         });
 
         // Enhanced send message with multimodal support
@@ -1856,9 +1925,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             const currentAttachments = [...attachedFiles];
             attachedFiles = [];
             updateFilePreview();
-            
-            // Reset messages container padding
-            document.getElementById('messages').style.paddingBottom = '24px';
             
             // Show typing indicator
             typingIndicator.style.display = 'flex';
