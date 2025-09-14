@@ -39,7 +39,8 @@
             color: var(--text-primary);
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100dvh;
+            height: 100dvh;
             line-height: 1.6;
             overflow: hidden;
             -webkit-overflow-scrolling: touch;
@@ -58,6 +59,7 @@
             z-index: 10;
             height: var(--header-height);
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            flex-shrink: 0;
         }
         
         .logo-container {
@@ -105,7 +107,8 @@
             display: flex;
             flex: 1;
             overflow: hidden;
-            height: calc(100vh - var(--header-height));
+            height: calc(100dvh - var(--header-height));
+            min-height: 0;
         }
         
         /* Enhanced sidebar */
@@ -120,6 +123,7 @@
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 8px 0 32px rgba(31, 38, 135, 0.2);
+            flex-shrink: 0;
         }
         
         .sidebar.is-closed {
@@ -131,6 +135,7 @@
         .sidebar-header {
             padding: 24px;
             border-bottom: 1px solid var(--glass-border);
+            flex-shrink: 0;
         }
         
         .new-chat-btn {
@@ -259,6 +264,7 @@
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            min-height: 0;
         }
         
         .chat-header {
@@ -268,6 +274,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-shrink: 0;
         }
         
         .chat-title-container {
@@ -318,6 +325,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-height: 0;
         }
         
         #messages {
@@ -329,6 +337,7 @@
             background: transparent;
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+            min-height: 0;
         }
         
         #messages::-webkit-scrollbar {
@@ -437,6 +446,7 @@
             position: relative;
             min-height: auto;
             flex-shrink: 0;
+            z-index: 5;
         }
         
         .file-preview {
@@ -451,6 +461,7 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
             order: 1;
+            flex-shrink: 0;
         }
         
         .file-preview::-webkit-scrollbar {
@@ -476,6 +487,7 @@
             position: relative;
             min-height: 50px;
             order: 2;
+            flex-shrink: 0;
         }
         
         .input-wrapper {
@@ -884,7 +896,7 @@
         @media (max-width: 968px) {
             .sidebar {
                 position: absolute;
-                height: calc(100vh - var(--header-height));
+                height: calc(100dvh - var(--header-height));
                 z-index: 100;
                 transform: translateX(-100%);
             }
@@ -983,6 +995,15 @@
             .preview-size {
                 font-size: 10px;
             }
+
+            /* Ensure input is visible on keyboard open */
+            #chat-container {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            #input-container {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
         }
         
         @media (max-width: 768px) {
@@ -1046,6 +1067,11 @@
                 width: 24px;
                 height: 24px;
             }
+
+            /* Adjust for small height */
+            #messages {
+                padding-bottom: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1060,7 +1086,7 @@
             }
             
             .main-layout {
-                height: calc(100vh - 60px);
+                height: calc(100dvh - 60px);
             }
             
             .chat-header {
@@ -1204,6 +1230,11 @@
             .input-btn {
                 padding: 2px;
                 font-size: 12px;
+            }
+
+            /* Ensure messages don't push input off */
+            #messages {
+                padding-bottom: 10px;
             }
         }
         
@@ -1485,6 +1516,18 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             });
         }
 
+        // Ensure input visibility on focus/keyboard open
+        function handleInputFocus() {
+            // Scroll to bottom to ensure input is visible
+            setTimeout(() => {
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                // For mobile, adjust for visual viewport
+                if ('visualViewport' in window) {
+                    window.visualViewport.scrollTo(0, 0);
+                }
+            }, 100);
+        }
+
         // Initialize the app
         function initApp() {
             renderConversationsList();
@@ -1497,6 +1540,14 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
 
             // Set up media input event listeners
             setupMediaInputs();
+
+            // Add focus listener for input visibility
+            userInput.addEventListener('focus', handleInputFocus);
+
+            // Listen for viewport resize (keyboard open/close)
+            window.visualViewport?.addEventListener('resize', () => {
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            });
         }
 
         function setupMediaInputs() {
