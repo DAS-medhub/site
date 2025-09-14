@@ -46,7 +46,6 @@
             -webkit-overflow-scrolling: touch;
         }
         
-        /* Glassmorphism header */
         .header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -102,7 +101,6 @@
             transform: translateY(-2px);
         }
         
-        /* Enhanced main layout */
         .main-layout {
             display: flex;
             flex: 1;
@@ -111,7 +109,6 @@
             min-height: 0;
         }
         
-        /* Enhanced sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--glass-bg);
@@ -255,7 +252,6 @@
             transform: scale(1.1);
         }
         
-        /* Enhanced main container */
         .main-container {
             flex: 1;
             display: flex;
@@ -433,7 +429,6 @@
             color: var(--text-secondary);
         }
         
-        /* Enhanced input area - IMPROVED FOR MOBILE */
         #input-container {
             display: flex;
             flex-direction: column;
@@ -444,7 +439,7 @@
             -webkit-backdrop-filter: blur(20px);
             gap: 12px;
             position: relative;
-            min-height: auto;
+            min-height: 70px;
             flex-shrink: 0;
             z-index: 5;
         }
@@ -593,7 +588,6 @@
             transform: none;
         }
         
-        /* Enhanced typing indicator */
         .typing-indicator {
             display: none;
             padding: 16px 20px;
@@ -706,7 +700,6 @@
             background: rgba(239, 68, 68, 0.1);
         }
         
-        /* Modal improvements */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -798,7 +791,6 @@
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
         }
         
-        /* Media message styles */
         .media-message {
             margin-top: 12px;
         }
@@ -854,7 +846,6 @@
             color: var(--text-secondary);
         }
         
-        /* Empty state */
         .empty-conversations {
             padding: 40px 24px;
             text-align: center;
@@ -871,13 +862,11 @@
             margin-bottom: 8px;
         }
         
-        /* Loading states */
         .loading {
             opacity: 0.6;
             pointer-events: none;
         }
         
-        /* Responsive design - FIXED FOR MOBILE INPUT VISIBILITY */
         @media (min-width: 769px) {
             .input-row {
                 flex-direction: column;
@@ -917,11 +906,14 @@
                 opacity: 1;
             }
             
-            /* Fixed mobile input area */
             #input-container {
-                padding: 12px;
-                gap: 8px;
-                min-height: 70px;
+                padding: 8px;
+                gap: 6px;
+                min-height: 65px;
+                position: sticky;
+                bottom: 0;
+                background: var(--glass-bg);
+                z-index: 10;
             }
             
             .input-row {
@@ -996,13 +988,12 @@
                 font-size: 10px;
             }
 
-            /* Ensure input is visible on keyboard open */
             #chat-container {
-                padding-bottom: env(safe-area-inset-bottom);
+                padding-bottom: env(safe-area-inset-bottom, 0);
             }
 
             #input-container {
-                padding-bottom: env(safe-area-inset-bottom);
+                padding-bottom: env(safe-area-inset-bottom, 16px);
             }
         }
         
@@ -1028,15 +1019,27 @@
                 font-size: 16px;
             }
             
-            /* Further mobile optimizations */
             #input-container {
-                padding: 10px;
-                gap: 6px;
-                min-height: 65px;
+                padding: 6px;
+                gap: 4px;
+                min-height: 60px;
             }
             
             .input-row {
                 min-height: 45px;
+            }
+            
+            .input-wrapper {
+                max-height: 100px;
+            }
+            
+            #user-input {
+                max-height: 60px;
+                padding-bottom: 45px;
+            }
+            
+            .file-preview {
+                max-height: 60px;
             }
             
             .input-actions {
@@ -1067,143 +1070,13 @@
                 width: 24px;
                 height: 24px;
             }
-
-            /* Adjust for small height */
-            #messages {
-                padding-bottom: 20px;
-            }
         }
 
-        @media (max-width: 480px) {
-            /* Extra small device optimizations */
-            .header {
-                padding: 10px 12px;
-                height: 60px;
-            }
-            
-            .logo {
-                height: 35px;
-            }
-            
-            .main-layout {
-                height: calc(100dvh - 60px);
-            }
-            
-            .chat-header {
-                padding: 12px;
-            }
-            
-            .chat-title {
-                font-size: 16px;
-                margin-left: 8px;
-            }
-            
-            #messages {
-                padding: 12px;
-            }
-            
-            .message-row {
-                margin-bottom: 16px;
-            }
-            
-            .message {
-                max-width: 95%;
-                padding: 12px 14px;
-                font-size: 14px;
-            }
-            
-            .message-time {
-                font-size: 10px;
-            }
-            
-            #input-container {
-                padding: 8px;
-                gap: 4px;
-                min-height: 60px;
-            }
-            
-            .input-row {
-                min-height: 40px;
-            }
-            
-            .input-wrapper {
-                border-radius: 18px 0 0 18px;
-                max-height: 100px;
-            }
-            
-            #user-input {
-                padding: 8px 10px 45px 10px;
-                font-size: 13px;
-                max-height: 60px;
-            }
-            
-            .input-actions {
-                bottom: 2px;
-                left: 2px;
-                right: 2px;
-                gap: 2px;
-            }
-            
-            .input-btn {
-                padding: 3px;
-                font-size: 12px;
-            }
-            
-            #send-btn {
-                min-width: 40px;
-                border-radius: 0 18px 18px 0;
-                padding: 0 8px;
-            }
-            
-            #send-btn i {
-                font-size: 12px;
-            }
-            
-            .file-preview {
-                max-height: 60px;
-                padding: 6px;
-            }
-            
-            .preview-item {
-                gap: 6px;
-                padding: 4px;
-            }
-            
-            .preview-icon {
-                width: 24px;
-                height: 24px;
-                font-size: 11px;
-            }
-            
-            .preview-name {
-                font-size: 10px;
-            }
-            
-            .preview-size {
-                font-size: 9px;
-            }
-            
-            .modal {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            .modal-title {
-                font-size: 18px;
-            }
-            
-            .modal-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-            }
-        }
-        
-        /* Very small height devices */
         @media (max-height: 600px) {
             #input-container {
-                padding: 8px;
-                gap: 4px;
-                min-height: 55px;
+                padding: 4px;
+                gap: 2px;
+                min-height: 50px;
             }
             
             .input-row {
@@ -1211,16 +1084,16 @@
             }
             
             .input-wrapper {
-                max-height: 80px;
+                max-height: 70px;
             }
             
             #user-input {
-                max-height: 50px;
+                max-height: 40px;
                 padding-bottom: 40px;
             }
             
             .file-preview {
-                max-height: 50px;
+                max-height: 40px;
             }
             
             .input-actions {
@@ -1232,13 +1105,11 @@
                 font-size: 12px;
             }
 
-            /* Ensure messages don't push input off */
             #messages {
                 padding-bottom: 10px;
             }
         }
         
-        /* Hidden file inputs */
         #file-input,
         #image-input,
         #video-input,
@@ -1328,12 +1199,10 @@
         </div>
     </div>
 
-    <!-- Hidden file inputs -->
     <input type="file" id="image-input" accept="image/*" multiple>
     <input type="file" id="video-input" accept="video/*">
     <input type="file" id="audio-input" accept="audio/*">
 
-    <!-- Delete confirmation modal -->
     <div class="modal-overlay" id="delete-modal">
         <div class="modal">
             <div class="modal-title">Delete Conversation</div>
@@ -1346,7 +1215,6 @@
     </div>
 
     <script>
-        // Updated API configuration for Gemini 2.0 Flash
         const API_KEY = 'AIzaSyB8Oj7UA62CkR8TOn-Y_10KR6N4cWq5g0Y';
         const MODEL = 'gemini-2.5-flash-lite';
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
@@ -1430,7 +1298,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
 
         const initialGreeting = "Hi, I'm Rose, your AI health assistant. How are you feeling today?";
 
-        // Global variables
         let conversations = JSON.parse(sessionStorage.getItem('medhub_conversations')) || [];
         let currentConversationId = null;
         let conversationHistory = [];
@@ -1440,7 +1307,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         let mediaRecorder = null;
         let recordedChunks = [];
 
-        // DOM elements
         const messagesDiv = document.getElementById('messages');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
@@ -1455,7 +1321,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const confirmDeleteBtn = document.getElementById('confirm-delete');
         const filePreview = document.getElementById('file-preview');
 
-        // Media input elements
         const imageBtn = document.getElementById('image-btn');
         const videoBtn = document.getElementById('video-btn');
         const audioBtn = document.getElementById('audio-btn');
@@ -1464,8 +1329,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const videoInput = document.getElementById('video-input');
         const audioInput = document.getElementById('audio-input');
 
-        // Helper functions
-        const isSmallScreen = () => window.innerWidth <= 968;
+        function isSmallScreen() { return window.innerWidth <= 968; }
         
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
@@ -1489,109 +1353,76 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             return 'file';
         }
 
-        // Function to clean and format AI response
         function formatAIResponse(text) {
-            // Remove markdown asterisks and other formatting
             let formattedText = text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convert **bold** to <strong>
-                .replace(/\*(.*?)\*/g, '<em>$1</em>') // Convert *italic* to <em>
-                .replace(/\n/g, '<br>') // Convert newlines to <br>
-                .replace(/#{1,6}\s?(.*?)(?=\n|$)/g, '<strong>$1</strong>') // Convert headers to bold
-                .replace(/\-\s(.*?)(?=\n|$)/g, '• $1<br>') // Convert bullet points
-                .replace(/\d+\.\s(.*?)(?=\n|$)/g, '$1<br>'); // Convert numbered lists
-                
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>')
+                .replace(/#{1,6}\s?(.*?)(?=\n|$)/g, '<strong>$1</strong>')
+                .replace(/\-\s(.*?)(?=\n|$)/g, '• $1<br>')
+                .replace(/\d+\.\s(.*?)(?=\n|$)/g, '$1<br>');
             return formattedText;
         }
 
-        // File conversion to base64
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = () => {
-                    const base64 = reader.result.split(',')[1];
-                    resolve(base64);
-                };
+                reader.onload = () => resolve(reader.result.split(',')[1]);
                 reader.onerror = error => reject(error);
             });
         }
 
-        // Ensure input visibility on focus/keyboard open
         function handleInputFocus() {
-            // Scroll to bottom to ensure input is visible
             setTimeout(() => {
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                // For mobile, adjust for visual viewport
                 if ('visualViewport' in window) {
-                    window.visualViewport.scrollTo(0, 0);
+                    window.visualViewport.scrollTo(0, document.body.scrollHeight - window.visualViewport.height + 10);
                 }
             }, 100);
         }
 
-        // Initialize the app
         function initApp() {
             renderConversationsList();
-            
             if (conversations.length > 0) {
                 loadConversation(conversations[0].id);
             } else {
                 createNewConversation();
             }
-
-            // Set up media input event listeners
             setupMediaInputs();
-
-            // Add focus listener for input visibility
             userInput.addEventListener('focus', handleInputFocus);
-
-            // Listen for viewport resize (keyboard open/close)
             window.visualViewport?.addEventListener('resize', () => {
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             });
         }
 
         function setupMediaInputs() {
-            // Image upload
             imageBtn.addEventListener('click', () => imageInput.click());
             imageInput.addEventListener('change', handleFileSelect);
-
-            // Video upload
             videoBtn.addEventListener('click', () => videoInput.click());
             videoInput.addEventListener('change', handleFileSelect);
-
-            // Audio upload
             audioBtn.addEventListener('click', () => audioInput.click());
             audioInput.addEventListener('change', handleFileSelect);
-
-            // Voice recording
             voiceBtn.addEventListener('click', toggleVoiceRecording);
         }
 
         async function handleFileSelect(event) {
             const files = Array.from(event.target.files);
-            
             for (const file of files) {
-                if (file.size > 20 * 1024 * 1024) { // 20MB limit
+                if (file.size > 20 * 1024 * 1024) {
                     alert(`File ${file.name} is too large. Maximum size is 20MB.`);
                     continue;
                 }
-
                 try {
                     const base64 = await fileToBase64(file);
-                    attachedFiles.push({
-                        name: file.name,
-                        type: file.type,
-                        size: file.size,
-                        data: base64
-                    });
+                    attachedFiles.push({ name: file.name, type: file.type, size: file.size, data: base64 });
                 } catch (error) {
                     console.error('Error processing file:', error);
                     alert(`Error processing file ${file.name}`);
                 }
             }
-
             updateFilePreview();
-            event.target.value = ''; // Clear input
+            event.target.value = '';
         }
 
         function updateFilePreview() {
@@ -1600,7 +1431,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 filePreview.innerHTML = '';
                 return;
             }
-
             filePreview.classList.add('show');
             filePreview.innerHTML = attachedFiles.map((file, index) => `
                 <div class="preview-item">
@@ -1623,41 +1453,25 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             updateFilePreview();
         }
 
-        // Voice recording functionality
         async function toggleVoiceRecording() {
             if (!isRecording) {
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     mediaRecorder = new MediaRecorder(stream);
                     recordedChunks = [];
-
-                    mediaRecorder.ondataavailable = (event) => {
-                        if (event.data.size > 0) {
-                            recordedChunks.push(event.data);
-                        }
-                    };
-
+                    mediaRecorder.ondataavailable = (event) => event.data.size > 0 && recordedChunks.push(event.data);
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(recordedChunks, { type: 'audio/wav' });
                         const file = new File([blob], `voice-${Date.now()}.wav`, { type: 'audio/wav' });
-                        
                         try {
                             const base64 = await fileToBase64(file);
-                            attachedFiles.push({
-                                name: file.name,
-                                type: file.type,
-                                size: file.size,
-                                data: base64
-                            });
+                            attachedFiles.push({ name: file.name, type: file.type, size: file.size, data: base64 });
                             updateFilePreview();
                         } catch (error) {
                             console.error('Error processing recording:', error);
                         }
-
-                        // Stop all tracks
                         stream.getTracks().forEach(track => track.stop());
                     };
-
                     mediaRecorder.start();
                     isRecording = true;
                     voiceBtn.classList.add('recording');
@@ -1674,7 +1488,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             }
         }
 
-        // Conversation management (updated for session storage)
         function createNewConversation() {
             const newConversation = {
                 id: Date.now().toString(),
@@ -1682,7 +1495,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 createdAt: new Date().toISOString(),
                 messages: []
             };
-            
             conversations.unshift(newConversation);
             saveConversations();
             renderConversationsList();
@@ -1692,60 +1504,28 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function loadConversation(conversationId) {
             messagesDiv.innerHTML = '';
             messagesDiv.appendChild(typingIndicator);
-            
             const conversation = conversations.find(c => c.id === conversationId);
             if (!conversation) return;
-            
             currentConversationId = conversationId;
-            
-            // Update active state
             document.querySelectorAll('.conversation-item').forEach(item => {
                 item.classList.remove('active');
-                if (item.dataset.id === conversationId) {
-                    item.classList.add('active');
-                }
+                if (item.dataset.id === conversationId) item.classList.add('active');
             });
-            
-            // Load messages
             if (conversation.messages.length > 0) {
-                conversation.messages.forEach(msg => {
-                    addMessage(msg.text, msg.isUser, msg.attachments);
-                });
-                
-                // Rebuild conversation history for API
-                conversationHistory = conversation.messages.map(msg => {
-                    const parts = [{ text: msg.text }];
-                    
-                    // Add media parts if they exist
-                    if (msg.attachments) {
-                        msg.attachments.forEach(attachment => {
-                            parts.push({
-                                inline_data: {
-                                    mime_type: attachment.type,
-                                    data: attachment.data
-                                }
-                            });
-                        });
-                    }
-                    
-                    return {
-                        role: msg.isUser ? "user" : "model",
-                        parts: parts
-                    };
-                });
+                conversation.messages.forEach(msg => addMessage(msg.text, msg.isUser, msg.attachments));
+                conversationHistory = conversation.messages.map(msg => ({
+                    role: msg.isUser ? "user" : "model",
+                    parts: [{ text: msg.text }].concat(msg.attachments ? msg.attachments.map(a => ({
+                        inline_data: { mime_type: a.type, data: a.data }
+                    })) : [])
+                }));
             } else {
-                // Show typing indicator for initial greeting
                 typingIndicator.style.display = 'flex';
-                
                 setTimeout(() => {
                     typingIndicator.style.display = 'none';
                     addMessage(initialGreeting, false);
                     addMessageToConversation(initialGreeting, false);
-                    
-                    conversationHistory = [{
-                        role: "model",
-                        parts: [{ text: initialGreeting }]
-                    }];
+                    conversationHistory = [{ role: "model", parts: [{ text: initialGreeting }] }];
                 }, 1500);
             }
         }
@@ -1753,35 +1533,21 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function addMessageToConversation(text, isUser, attachments = null) {
             const conversation = conversations.find(c => c.id === currentConversationId);
             if (!conversation) return;
-            
-            conversation.messages.push({
-                text,
-                isUser,
-                attachments,
-                timestamp: new Date().toISOString()
-            });
-            
-            // Update title for first user message
+            conversation.messages.push({ text, isUser, attachments, timestamp: new Date().toISOString() });
             if (isUser && conversation.title === 'New Conversation') {
                 conversation.title = text.slice(0, 40) + (text.length > 40 ? '...' : '');
                 renderConversationsList();
             }
-            
             saveConversations();
         }
 
         function deleteConversation(conversationId) {
             conversations = conversations.filter(c => c.id !== conversationId);
             saveConversations();
-            
             if (currentConversationId === conversationId) {
-                if (conversations.length > 0) {
-                    loadConversation(conversations[0].id);
-                } else {
-                    createNewConversation();
-                }
+                if (conversations.length > 0) loadConversation(conversations[0].id);
+                else createNewConversation();
             }
-            
             renderConversationsList();
         }
 
@@ -1795,22 +1561,15 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 conversationsList.innerHTML = '';
                 return;
             }
-            
             emptyConversations.style.display = 'none';
             conversationsList.innerHTML = '';
-            
             conversations.forEach(conversation => {
-                const lastMessage = conversation.messages.length > 0 
-                    ? conversation.messages[conversation.messages.length - 1].text
-                    : 'No messages yet';
-                
+                const lastMessage = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1].text : 'No messages yet';
                 const item = document.createElement('div');
                 item.className = `conversation-item ${conversation.id === currentConversationId ? 'active' : ''}`;
                 item.dataset.id = conversation.id;
-                
                 const date = new Date(conversation.createdAt);
                 const formattedDate = date.toLocaleDateString();
-                
                 item.innerHTML = `
                     <div class="conversation-content">
                         <div class="conversation-title">${conversation.title}</div>
@@ -1821,19 +1580,14 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                         <i class="fas fa-trash"></i>
                     </button>
                 `;
-                
                 item.addEventListener('click', (e) => {
-                    if (!e.target.closest('.delete-conversation')) {
-                        loadConversation(conversation.id);
-                    }
+                    if (!e.target.closest('.delete-conversation')) loadConversation(conversation.id);
                 });
-                
                 const deleteBtn = item.querySelector('.delete-conversation');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     showDeleteModal(conversation.id);
                 });
-                
                 conversationsList.appendChild(item);
             });
         }
@@ -1851,7 +1605,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function addMessage(text, isUser, attachments = null) {
             const messageRow = document.createElement('div');
             messageRow.classList.add('message-row', isUser ? 'user' : 'ai');
-            
             if (!isUser) {
                 const avatarDiv = document.createElement('div');
                 avatarDiv.classList.add('avatar');
@@ -1869,25 +1622,15 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 avatarDiv.appendChild(avatarContent);
                 messageRow.appendChild(avatarDiv);
             }
-            
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            
-            // Add text content
             const textDiv = document.createElement('div');
-            if (!isUser) {
-                // Format AI response to remove markdown
-                textDiv.innerHTML = formatAIResponse(text);
-            } else {
-                textDiv.textContent = text;
-            }
+            if (!isUser) textDiv.innerHTML = formatAIResponse(text);
+            else textDiv.textContent = text;
             messageDiv.appendChild(textDiv);
-            
-            // Add media attachments if present
             if (attachments && attachments.length > 0) {
                 const mediaDiv = document.createElement('div');
                 mediaDiv.classList.add('media-message');
-                
                 attachments.forEach(attachment => {
                     if (attachment.type.startsWith('image/')) {
                         const img = document.createElement('img');
@@ -1911,12 +1654,10 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                                 <div class="audio-duration">Audio file</div>
                             </div>
                         `;
-                        
                         const audio = document.createElement('audio');
                         audio.src = `data:${attachment.type};base64,${attachment.data}`;
                         audio.style.display = 'none';
                         audioPlayer.appendChild(audio);
-                        
                         const playBtn = audioPlayer.querySelector('.audio-play-btn');
                         playBtn.addEventListener('click', () => {
                             if (audio.paused) {
@@ -1927,136 +1668,75 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                                 playBtn.innerHTML = '<i class="fas fa-play"></i>';
                             }
                         });
-                        
-                        audio.addEventListener('ended', () => {
-                            playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                        });
-                        
+                        audio.addEventListener('ended', () => playBtn.innerHTML = '<i class="fas fa-play"></i>');
                         mediaDiv.appendChild(audioPlayer);
                     }
                 });
-                
                 messageDiv.appendChild(mediaDiv);
             }
-            
-            // Add timestamp
             const timeSpan = document.createElement('div');
             timeSpan.classList.add('message-time');
             const now = new Date();
             timeSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             messageDiv.appendChild(timeSpan);
-            
             messageRow.appendChild(messageDiv);
             messagesDiv.appendChild(messageRow);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        // Auto-resize textarea
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 120) + 'px';
         });
 
-        // Enhanced send message with multimodal support
         async function sendMessage() {
             const message = userInput.value.trim();
             if (!message && attachedFiles.length === 0) return;
-
-            // Disable send button and show loading state
             sendBtn.disabled = true;
             sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-
-            // Add user message to UI
             addMessage(message || 'Shared media files', true, attachedFiles.length > 0 ? [...attachedFiles] : null);
             addMessageToConversation(message || 'Shared media files', true, attachedFiles.length > 0 ? [...attachedFiles] : null);
-            
-            // Clear input and attachments
             userInput.value = '';
             userInput.style.height = 'auto';
             const currentAttachments = [...attachedFiles];
             attachedFiles = [];
             updateFilePreview();
-            
-            // Show typing indicator
             typingIndicator.style.display = 'flex';
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-            // Prepare API request
             const parts = [{ text: message || 'Please analyze the attached media files.' }];
-            
-            // Add media files to the request
-            currentAttachments.forEach(file => {
-                parts.push({
-                    inline_data: {
-                        mime_type: file.type,
-                        data: file.data
-                    }
-                });
-            });
-
-            conversationHistory.push({
-                role: "user",
-                parts: parts
-            });
-
+            currentAttachments.forEach(file => parts.push({
+                inline_data: { mime_type: file.type, data: file.data }
+            }));
+            conversationHistory.push({ role: "user", parts });
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         contents: conversationHistory,
-                        system_instruction: {
-                            parts: [{ text: systemPrompt }]
-                        },
-                        generation_config: {
-                            temperature: 0.7,
-                            top_k: 40,
-                            top_p: 0.8,
-                            max_output_tokens: 2048
-                        }
+                        system_instruction: { parts: [{ text: systemPrompt }] },
+                        generation_config: { temperature: 0.7, top_k: 40, top_p: 0.8, max_output_tokens: 2048 }
                     })
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`API Error: ${errorData.error?.message || response.statusText}`);
-                }
-
+                if (!response.ok) throw new Error(`API Error: ${await response.text()}`);
                 const data = await response.json();
                 const aiResponse = data.candidates[0].content.parts[0].text;
-                
-                // Hide typing indicator and show response
                 typingIndicator.style.display = 'none';
                 addMessage(aiResponse, false);
                 addMessageToConversation(aiResponse, false);
-
-                conversationHistory.push({
-                    role: "model",
-                    parts: [{ text: aiResponse }]
-                });
+                conversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
             } catch (error) {
                 console.error('API Error:', error);
                 typingIndicator.style.display = 'none';
-                
                 let errorMessage = 'Sorry, there was an error processing your request. Please try again.';
-                if (error.message.includes('API_KEY')) {
-                    errorMessage = 'API key error. Please check the configuration.';
-                } else if (error.message.includes('quota')) {
-                    errorMessage = 'API quota exceeded. Please try again later.';
-                }
-                
                 addMessage(errorMessage, false);
                 addMessageToConversation(errorMessage, false);
             } finally {
-                // Re-enable send button
                 sendBtn.disabled = false;
                 sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
             }
         }
 
-        // Event listeners
         sendBtn.addEventListener('click', sendMessage);
         userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -2068,14 +1748,10 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         newChatBtn.addEventListener('click', createNewConversation);
         
         toggleSidebarBtn.addEventListener('click', () => {
-            if (isSmallScreen()) {
-                sidebar.classList.toggle('is-open');
-            } else {
-                sidebar.classList.toggle('is-closed');
-            }
+            if (isSmallScreen()) sidebar.classList.toggle('is-open');
+            else sidebar.classList.toggle('is-closed');
         });
         
-        // Close sidebar on outside click for small screens
         document.addEventListener('click', (e) => {
             if (isSmallScreen() && sidebar.classList.contains('is-open') &&
                 !sidebar.contains(e.target) && !toggleSidebarBtn.contains(e.target)) {
@@ -2083,16 +1759,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             }
         });
         
-        // Clean up classes on resize
         window.addEventListener('resize', () => {
-            if (isSmallScreen()) {
-                sidebar.classList.remove('is-closed');
-            } else {
-                sidebar.classList.remove('is-open');
-            }
+            if (isSmallScreen()) sidebar.classList.remove('is-closed');
+            else sidebar.classList.remove('is-open');
         });
         
-        // Modal event listeners
         cancelDeleteBtn.addEventListener('click', hideDeleteModal);
         confirmDeleteBtn.addEventListener('click', () => {
             if (conversationToDelete) {
@@ -2102,29 +1773,20 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         });
         
         deleteModal.addEventListener('click', (e) => {
-            if (e.target === deleteModal) {
-                hideDeleteModal();
-            }
+            if (e.target === deleteModal) hideDeleteModal();
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + N for new conversation
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                 e.preventDefault();
                 createNewConversation();
             }
-            
-            // Escape to close modals
             if (e.key === 'Escape') {
                 hideDeleteModal();
-                if (isSmallScreen() && sidebar.classList.contains('is-open')) {
-                    sidebar.classList.remove('is-open');
-                }
+                if (isSmallScreen() && sidebar.classList.contains('is-open')) sidebar.classList.remove('is-open');
             }
         });
 
-        // Initialize the application
         initApp();
     </script>
 </body>
