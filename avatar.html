@@ -35,7 +35,7 @@
         
         body {
             font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: transparent;
             color: var(--text-primary);
             display: flex;
             flex-direction: column;
@@ -45,9 +45,10 @@
             overflow: hidden;
             -webkit-overflow-scrolling: touch;
         }
+
         
         .header {
-            background: var(--glass-bg);
+            background: transparent;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
@@ -55,6 +56,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-radius: 10px;
             z-index: 10;
             height: var(--header-height);
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
@@ -1791,4 +1793,5 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
     </script>
 </body>
 </html>
+
 
