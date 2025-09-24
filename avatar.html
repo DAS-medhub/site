@@ -6,6 +6,10 @@
     <title>DAS medhub - Virtual Health Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html {
+            height: 100%;
+        }
+        
         :root {
             --primary: #fd9150;
             --primary-dark: #e07a40;
@@ -43,9 +47,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            height: 100vh;
             line-height: 1.6;
-            overflow: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -107,8 +109,6 @@
         .main-layout {
             display: flex;
             flex: 1;
-            overflow: hidden;
-            height: calc(100vh - var(--header-height));
             min-height: 0;
         }
         
@@ -547,7 +547,6 @@
             flex-wrap: wrap;
             justify-content: flex-start;
             background: transparent;
-            z-index: 2;
         }
         
         .input-btn {
@@ -560,11 +559,6 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 13px;
             flex-shrink: 0;
-            min-width: 32px;
-            min-height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .input-btn:hover {
@@ -886,114 +880,6 @@
             pointer-events: none;
         }
         
-        /* Mobile-specific improvements */
-        .mobile-input-actions {
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0 0;
-            border-top: 1px solid var(--light-border);
-            margin-top: 8px;
-            order: 3;
-            flex-shrink: 0;
-        }
-        
-        .mobile-input-actions .input-btn {
-            min-width: 44px;
-            min-height: 44px;
-            font-size: 16px;
-        }
-        
-        /* Mobile attachment menu */
-        .mobile-attachment-menu {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 16px;
-            padding: 12px;
-            box-shadow: var(--shadow-strong);
-            margin-bottom: 8px;
-            z-index: 10;
-            flex-direction: column;
-            gap: 8px;
-            transform: translateY(10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .mobile-attachment-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .mobile-attachment-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border: none;
-            background: transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-            text-align: left;
-            font-size: 14px;
-            color: var(--text-primary);
-        }
-        
-        .mobile-attachment-btn:hover {
-            background: rgba(253, 145, 80, 0.1);
-        }
-        
-        .mobile-attachment-btn i {
-            width: 20px;
-            text-align: center;
-            color: var(--primary);
-        }
-        
-        .mobile-attachment-close {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        .mobile-attachment-close:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        .mobile-attachment-toggle {
-            display: none;
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            z-index: 5;
-        }
-        
-        .mobile-attachment-toggle:hover {
-            background: rgba(253, 145, 80, 0.1);
-            color: var(--primary);
-        }
-        
         @media (max-width: 1024px) {
             :root {
                 --sidebar-width: 280px;
@@ -1099,11 +985,10 @@
             }
             
             .input-actions {
-                display: none;
-            }
-            
-            .mobile-input-actions {
-                display: flex;
+                bottom: 4px;
+                left: 6px;
+                right: 6px;
+                gap: 3px;
             }
             
             .input-btn {
@@ -1164,16 +1049,6 @@
             
             .conversation-preview {
                 font-size: 10px;
-            }
-            
-            /* Show mobile attachment toggle on mobile */
-            .mobile-attachment-toggle {
-                display: flex;
-            }
-            
-            /* Adjust input padding to make space for the toggle */
-            #user-input {
-                padding-left: 40px;
             }
         }
         
@@ -1242,17 +1117,16 @@
             }
             
             #user-input {
-                padding: 8px 10px 28px 40px;
+                padding: 8px 10px 28px 10px;
                 font-size: 13px;
                 max-height: 62px;
             }
             
             .input-actions {
-                display: none;
-            }
-            
-            .mobile-input-actions {
-                display: flex;
+                bottom: 3px;
+                left: 4px;
+                right: 4px;
+                gap: 2px;
             }
             
             .input-btn {
@@ -1378,10 +1252,6 @@
             .new-chat-btn {
                 min-height: 48px;
             }
-            
-            .mobile-attachment-btn {
-                min-height: 44px;
-            }
         }
         
         /* Safe area insets for devices with notches */
@@ -1469,31 +1339,8 @@
                 
                 <div id="input-container">
                     <div class="file-preview" id="file-preview"></div>
-                    
-                    <!-- Mobile attachment menu -->
-                    <div class="mobile-attachment-menu" id="mobile-attachment-menu">
-                        <button class="mobile-attachment-close" id="mobile-attachment-close" aria-label="Close menu">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <button class="mobile-attachment-btn" id="mobile-menu-image-btn">
-                            <i class="fas fa-image"></i>
-                            Upload Image
-                        </button>
-                        <button class="mobile-attachment-btn" id="mobile-menu-audio-btn">
-                            <i class="fas fa-microphone"></i>
-                            Upload Audio
-                        </button>
-                        <button class="mobile-attachment-btn" id="mobile-menu-voice-btn">
-                            <i class="fas fa-microphone-alt"></i>
-                            Record Voice
-                        </button>
-                    </div>
-                    
                     <div class="input-row">
                         <div class="input-wrapper">
-                            <button class="mobile-attachment-toggle" id="mobile-attachment-toggle" aria-label="Attachment options">
-                                <i class="fas fa-plus"></i>
-                            </button>
                             <textarea id="user-input" rows="1" placeholder="Describe your symptoms...." aria-label="Type your message"></textarea>
                             <div class="input-actions">
                                 <button class="input-btn" id="image-btn" title="Upload image" aria-label="Upload image">
@@ -1509,17 +1356,6 @@
                         </div>
                         <button id="send-btn" aria-label="Send message">
                             <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                    <div class="mobile-input-actions">
-                        <button class="input-btn" id="mobile-image-btn" title="Upload image" aria-label="Upload image">
-                            <i class="fas fa-image"></i>
-                        </button>
-                        <button class="input-btn" id="mobile-audio-btn" title="Upload audio" aria-label="Upload audio">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        <button class="input-btn" id="mobile-voice-btn" title="Record voice message" aria-label="Record voice message">
-                            <i class="fas fa-microphone-alt"></i>
                         </button>
                     </div>
                 </div>
@@ -1651,19 +1487,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const imageBtn = document.getElementById('image-btn');
         const audioBtn = document.getElementById('audio-btn');
         const voiceBtn = document.getElementById('voice-btn');
-        const mobileImageBtn = document.getElementById('mobile-image-btn');
-        const mobileAudioBtn = document.getElementById('mobile-audio-btn');
-        const mobileVoiceBtn = document.getElementById('mobile-voice-btn');
         const imageInput = document.getElementById('image-input');
         const audioInput = document.getElementById('audio-input');
-
-        // Mobile attachment menu elements
-        const mobileAttachmentMenu = document.getElementById('mobile-attachment-menu');
-        const mobileAttachmentToggle = document.getElementById('mobile-attachment-toggle');
-        const mobileAttachmentClose = document.getElementById('mobile-attachment-close');
-        const mobileMenuImageBtn = document.getElementById('mobile-menu-image-btn');
-        const mobileMenuAudioBtn = document.getElementById('mobile-menu-audio-btn');
-        const mobileMenuVoiceBtn = document.getElementById('mobile-menu-voice-btn');
 
         function isSmallScreen() { return window.innerWidth <= 1024; }
         
@@ -1711,17 +1536,9 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             setTimeout(() => {
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
                 if ('visualViewport' in window) {
-                    window.visualViewport.scrollTo(0, document.body.scrollHeight - window.visualViewport.height + 10);
+                    window.scrollTo(0, document.body.scrollHeight - window.visualViewport.height + 10);
                 }
             }, 100);
-        }
-
-        function toggleMobileAttachmentMenu() {
-            mobileAttachmentMenu.classList.toggle('active');
-        }
-
-        function closeMobileAttachmentMenu() {
-            mobileAttachmentMenu.classList.remove('active');
         }
 
         function initApp() {
@@ -1748,7 +1565,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 }
                 if (e.key === 'Escape') {
                     hideDeleteModal();
-                    closeMobileAttachmentMenu();
                     if (isSmallScreen() && sidebar.classList.contains('is-open')) {
                         sidebar.classList.remove('is-open');
                     }
@@ -1760,13 +1576,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 if (isSmallScreen() && sidebar.classList.contains('is-open') &&
                     !sidebar.contains(e.target) && !toggleSidebarBtn.contains(e.target)) {
                     sidebar.classList.remove('is-open');
-                }
-                
-                // Close mobile attachment menu when clicking outside
-                if (mobileAttachmentMenu.classList.contains('active') && 
-                    !mobileAttachmentMenu.contains(e.target) && 
-                    !mobileAttachmentToggle.contains(e.target)) {
-                    closeMobileAttachmentMenu();
                 }
             });
 
@@ -1781,37 +1590,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         }
 
         function setupMediaInputs() {
-            // Desktop buttons
             imageBtn.addEventListener('click', () => imageInput.click());
-            audioBtn.addEventListener('click', () => audioInput.click());
-            voiceBtn.addEventListener('click', toggleVoiceRecording);
-            
-            // Mobile buttons (bottom row)
-            mobileImageBtn.addEventListener('click', () => imageInput.click());
-            mobileAudioBtn.addEventListener('click', () => audioInput.click());
-            mobileVoiceBtn.addEventListener('click', toggleVoiceRecording);
-            
-            // Mobile menu buttons
-            mobileMenuImageBtn.addEventListener('click', () => {
-                imageInput.click();
-                closeMobileAttachmentMenu();
-            });
-            mobileMenuAudioBtn.addEventListener('click', () => {
-                audioInput.click();
-                closeMobileAttachmentMenu();
-            });
-            mobileMenuVoiceBtn.addEventListener('click', () => {
-                toggleVoiceRecording();
-                closeMobileAttachmentMenu();
-            });
-            
-            // File input handlers
             imageInput.addEventListener('change', handleFileSelect);
+            audioBtn.addEventListener('click', () => audioInput.click());
             audioInput.addEventListener('change', handleFileSelect);
-            
-            // Mobile attachment menu controls
-            mobileAttachmentToggle.addEventListener('click', toggleMobileAttachmentMenu);
-            mobileAttachmentClose.addEventListener('click', closeMobileAttachmentMenu);
+            voiceBtn.addEventListener('click', toggleVoiceRecording);
         }
 
         async function handleFileSelect(event) {
@@ -1904,12 +1687,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     mediaRecorder.start();
                     isRecording = true;
                     voiceBtn.classList.add('recording');
-                    mobileVoiceBtn.classList.add('recording');
-                    mobileMenuVoiceBtn.innerHTML = '<i class="fas fa-stop"></i> Stop Recording';
                     voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
-                    mobileVoiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
                     voiceBtn.title = 'Stop recording';
-                    mobileVoiceBtn.title = 'Stop recording';
                 } catch (error) {
                     console.error('Error accessing microphone:', error);
                     alert('Error accessing microphone. Please check your permissions and try again.');
@@ -1918,12 +1697,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 mediaRecorder.stop();
                 isRecording = false;
                 voiceBtn.classList.remove('recording');
-                mobileVoiceBtn.classList.remove('recording');
-                mobileMenuVoiceBtn.innerHTML = '<i class="fas fa-microphone-alt"></i> Record Voice';
                 voiceBtn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
-                mobileVoiceBtn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
                 voiceBtn.title = 'Record voice message';
-                mobileVoiceBtn.title = 'Record voice message';
             }
         }
 
