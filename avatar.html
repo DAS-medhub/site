@@ -547,6 +547,7 @@
             flex-wrap: wrap;
             justify-content: flex-start;
             background: transparent;
+            z-index: 2;
         }
         
         .input-btn {
@@ -559,6 +560,11 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 13px;
             flex-shrink: 0;
+            min-width: 32px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .input-btn:hover {
@@ -880,6 +886,24 @@
             pointer-events: none;
         }
         
+        /* Mobile-specific improvements */
+        .mobile-input-actions {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0 0;
+            border-top: 1px solid var(--light-border);
+            margin-top: 8px;
+            order: 3;
+            flex-shrink: 0;
+        }
+        
+        .mobile-input-actions .input-btn {
+            min-width: 44px;
+            min-height: 44px;
+            font-size: 16px;
+        }
+        
         @media (max-width: 1024px) {
             :root {
                 --sidebar-width: 280px;
@@ -985,10 +1009,11 @@
             }
             
             .input-actions {
-                bottom: 4px;
-                left: 6px;
-                right: 6px;
-                gap: 3px;
+                display: none;
+            }
+            
+            .mobile-input-actions {
+                display: flex;
             }
             
             .input-btn {
@@ -1123,10 +1148,11 @@
             }
             
             .input-actions {
-                bottom: 3px;
-                left: 4px;
-                right: 4px;
-                gap: 2px;
+                display: none;
+            }
+            
+            .mobile-input-actions {
+                display: flex;
             }
             
             .input-btn {
@@ -1287,7 +1313,7 @@
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="images/dasmedhub-logo.png" alt="DAS MedHub" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <img src="images/dasmedhub-logo.png" alt="DAS medhub" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div class="nav-title" style="display: none;">DAS MedHub</div>
         </div>
         <div class="nav-links">
@@ -1356,6 +1382,17 @@
                         </div>
                         <button id="send-btn" aria-label="Send message">
                             <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="mobile-input-actions">
+                        <button class="input-btn" id="mobile-image-btn" title="Upload image" aria-label="Upload image">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <button class="input-btn" id="mobile-audio-btn" title="Upload audio" aria-label="Upload audio">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="input-btn" id="mobile-voice-btn" title="Record voice message" aria-label="Record voice message">
+                            <i class="fas fa-microphone-alt"></i>
                         </button>
                     </div>
                 </div>
@@ -1487,6 +1524,9 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const imageBtn = document.getElementById('image-btn');
         const audioBtn = document.getElementById('audio-btn');
         const voiceBtn = document.getElementById('voice-btn');
+        const mobileImageBtn = document.getElementById('mobile-image-btn');
+        const mobileAudioBtn = document.getElementById('mobile-audio-btn');
+        const mobileVoiceBtn = document.getElementById('mobile-voice-btn');
         const imageInput = document.getElementById('image-input');
         const audioInput = document.getElementById('audio-input');
 
@@ -1591,10 +1631,15 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
 
         function setupMediaInputs() {
             imageBtn.addEventListener('click', () => imageInput.click());
+            mobileImageBtn.addEventListener('click', () => imageInput.click());
             imageInput.addEventListener('change', handleFileSelect);
+            
             audioBtn.addEventListener('click', () => audioInput.click());
+            mobileAudioBtn.addEventListener('click', () => audioInput.click());
             audioInput.addEventListener('change', handleFileSelect);
+            
             voiceBtn.addEventListener('click', toggleVoiceRecording);
+            mobileVoiceBtn.addEventListener('click', toggleVoiceRecording);
         }
 
         async function handleFileSelect(event) {
@@ -1687,8 +1732,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     mediaRecorder.start();
                     isRecording = true;
                     voiceBtn.classList.add('recording');
+                    mobileVoiceBtn.classList.add('recording');
                     voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                    mobileVoiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
                     voiceBtn.title = 'Stop recording';
+                    mobileVoiceBtn.title = 'Stop recording';
                 } catch (error) {
                     console.error('Error accessing microphone:', error);
                     alert('Error accessing microphone. Please check your permissions and try again.');
@@ -1697,8 +1745,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 mediaRecorder.stop();
                 isRecording = false;
                 voiceBtn.classList.remove('recording');
+                mobileVoiceBtn.classList.remove('recording');
                 voiceBtn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
+                mobileVoiceBtn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
                 voiceBtn.title = 'Record voice message';
+                mobileVoiceBtn.title = 'Record voice message';
             }
         }
 
