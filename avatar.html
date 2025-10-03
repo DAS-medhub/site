@@ -9,7 +9,6 @@
         html {
             height: 100%;
         }
-        
         :root {
             --primary: #fd9150;
             --primary-dark: #e07a40;
@@ -33,13 +32,11 @@
             --shadow-medium: 0 8px 32px rgba(31, 38, 135, 0.15);
             --shadow-strong: 0 12px 40px rgba(31, 38, 135, 0.25);
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -50,7 +47,6 @@
             line-height: 1.6;
             -webkit-overflow-scrolling: touch;
         }
-
         .header {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -65,31 +61,26 @@
             box-shadow: var(--shadow-medium);
             flex-shrink: 0;
         }
-        
         .logo-container {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
         .logo {
             height: 40px;
             width: auto;
             filter: drop-shadow(0 2px 8px rgba(253, 145, 80, 0.3));
         }
-        
         .nav-title {
             font-size: 20px;
             font-weight: 700;
             color: var(--primary);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
         .nav-links {
             display: flex;
             gap: 24px;
         }
-        
         .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
@@ -99,19 +90,16 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
-        
         .nav-link:hover {
             color: var(--primary);
             background: rgba(253, 145, 80, 0.1);
             transform: translateY(-1px);
         }
-        
         .main-layout {
             display: flex;
             flex: 1;
             min-height: 0;
         }
-        
         .sidebar {
             width: var(--sidebar-width);
             background: var(--glass-bg);
@@ -125,19 +113,16 @@
             box-shadow: var(--shadow-medium);
             flex-shrink: 0;
         }
-        
         .sidebar.is-closed {
             width: 0;
             overflow: hidden;
             border-right: none;
         }
-        
         .sidebar-header {
             padding: 20px;
             border-bottom: 1px solid var(--glass-border);
             flex-shrink: 0;
         }
-        
         .new-chat-btn {
             display: flex;
             align-items: center;
@@ -155,12 +140,10 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-soft);
         }
-        
         .new-chat-btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
-        
         .conversations-list {
             flex: 1;
             overflow-y: auto;
@@ -168,20 +151,16 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
         }
-        
         .conversations-list::-webkit-scrollbar {
             width: 4px;
         }
-        
         .conversations-list::-webkit-scrollbar-track {
             background: transparent;
         }
-        
         .conversations-list::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 2px;
         }
-        
         .conversation-item {
             padding: 12px 16px;
             cursor: pointer;
@@ -193,23 +172,19 @@
             margin: 2px 12px;
             border-radius: 10px;
         }
-        
         .conversation-item:hover {
             background: rgba(253, 145, 80, 0.08);
             transform: translateX(2px);
         }
-        
         .conversation-item.active {
             background: linear-gradient(135deg, rgba(253, 145, 80, 0.12), rgba(255, 170, 115, 0.08));
             border: 1px solid rgba(253, 145, 80, 0.2);
             box-shadow: var(--shadow-soft);
         }
-        
         .conversation-content {
             flex: 1;
             overflow: hidden;
         }
-        
         .conversation-title {
             font-weight: 600;
             margin-bottom: 4px;
@@ -219,7 +194,6 @@
             font-size: 13px;
             color: var(--text-primary);
         }
-        
         .conversation-preview {
             font-size: 11px;
             color: var(--text-secondary);
@@ -228,13 +202,11 @@
             text-overflow: ellipsis;
             line-height: 1.3;
         }
-        
         .conversation-date {
             font-size: 10px;
             color: var(--text-secondary);
             margin-top: 2px;
         }
-        
         .delete-conversation {
             background: none;
             border: none;
@@ -246,17 +218,14 @@
             transition: all 0.2s ease;
             font-size: 12px;
         }
-        
         .conversation-item:hover .delete-conversation {
             opacity: 1;
         }
-        
         .delete-conversation:hover {
             color: var(--danger);
             background-color: rgba(239, 68, 68, 0.1);
             transform: scale(1.1);
         }
-        
         .main-container {
             flex: 1;
             display: flex;
@@ -267,7 +236,6 @@
             -webkit-backdrop-filter: blur(20px);
             min-height: 0;
         }
-        
         .chat-header {
             background: transparent;
             padding: 16px 24px;
@@ -277,19 +245,16 @@
             justify-content: space-between;
             flex-shrink: 0;
         }
-        
         .chat-title-container {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
         .chat-title {
             font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
         }
-        
         .status-indicator {
             width: 10px;
             height: 10px;
@@ -298,12 +263,10 @@
             box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
             animation: pulse 2s infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
-        
         .toggle-sidebar {
             background: rgba(253, 145, 80, 0.1);
             border: none;
@@ -314,12 +277,10 @@
             border-radius: 8px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .toggle-sidebar:hover {
             background: rgba(253, 145, 80, 0.2);
             transform: scale(1.05);
         }
-        
         #chat-container {
             flex: 1;
             display: flex;
@@ -327,7 +288,6 @@
             overflow: hidden;
             min-height: 0;
         }
-        
         #messages {
             flex: 1;
             padding: 20px;
@@ -340,25 +300,20 @@
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
             min-height: 0;
         }
-        
         #messages::-webkit-scrollbar {
             width: 6px;
         }
-        
         #messages::-webkit-scrollbar-track {
             background: transparent;
         }
-        
         #messages::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.15);
             border-radius: 3px;
         }
-        
         .message-row {
             display: flex;
             animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         @keyframes slideInUp {
             from { 
                 opacity: 0; 
@@ -369,7 +324,6 @@
                 transform: translateY(0);
             }
         }
-        
         .ai .avatar {
             width: 36px;
             height: 36px;
@@ -383,19 +337,16 @@
             box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
             border: 2px solid rgba(139, 92, 246, 0.15);
         }
-        
         .avatar-img {
             width: 24px;
             height: 24px;
             object-fit: cover;
         }
-
         .avatar1-img {
             width: 18px;
             height: 18px;
             object-fit: cover;
         }
-
         .message {
             max-width: 70%;
             padding: 14px 18px;
@@ -407,35 +358,29 @@
             position: relative;
             line-height: 1.5;
         }
-        
         .ai .message {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(99, 102, 241, 0.04));
             border-top-left-radius: 4px;
             color: var(--text-primary);
             border: 1px solid rgba(139, 92, 246, 0.1);
         }
-        
         .user {
             justify-content: flex-end;
         }
-        
         .user .message {
             background: linear-gradient(135deg, var(--secondary), var(--primary-light));
             color: white;
             border-top-right-radius: 4px;
         }
-        
         .message-time {
             font-size: 10px;
             color: rgba(255, 255, 255, 0.7);
             margin-top: 6px;
             text-align: right;
         }
-        
         .ai .message .message-time {
             color: var(--text-secondary);
         }
-        
         #input-container {
             display: flex;
             flex-direction: column;
@@ -446,11 +391,10 @@
             -webkit-backdrop-filter: blur(20px);
             gap: 12px;
             position: relative;
-            min-height: 80px;
+            min-height: 70px;
             flex-shrink: 0;
             z-index: 5;
         }
-        
         .file-preview {
             display: none;
             padding: 12px;
@@ -465,35 +409,19 @@
             order: 1;
             flex-shrink: 0;
         }
-        
-        .file-preview::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .file-preview::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .file-preview::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 2px;
-        }
-        
         .file-preview.show {
             display: block;
         }
-        
         .input-row {
             display: flex;
             flex: 1;
             position: relative;
-            min-height: 50px;
+            min-height: 48px;
             order: 2;
             flex-shrink: 0;
             gap: 8px;
             align-items: flex-end;
         }
-        
         .input-wrapper {
             flex: 1;
             position: relative;
@@ -504,23 +432,21 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 50px;
-            max-height: 120px;
+            min-height: 48px;
+            max-height: 100px;
             box-shadow: var(--shadow-soft);
         }
-        
         .input-wrapper:focus-within {
             border-color: var(--secondary);
             box-shadow: 0 0 0 4px rgba(0, 190, 100, 0.1);
         }
-        
         #user-input {
             width: 100%;
-            padding: 12px 16px 36px 16px;
+            padding: 10px 16px 34px 16px;
             border: none;
             outline: none;
             resize: none;
-            max-height: 84px;
+            max-height: 66px;
             font-family: inherit;
             font-size: 14px;
             line-height: 1.4;
@@ -529,11 +455,9 @@
             min-height: 20px;
             overflow-y: auto;
         }
-        
         #user-input::placeholder {
             color: var(--text-secondary);
         }
-        
         .input-actions {
             position: absolute;
             bottom: 6px;
@@ -542,13 +466,12 @@
             display: flex;
             align-items: center;
             padding: 0;
-            gap: 4px;
+            gap: 6px;
             border-top: none;
             flex-wrap: wrap;
             justify-content: flex-start;
             background: transparent;
         }
-        
         .input-btn {
             background: none;
             border: none;
@@ -560,19 +483,16 @@
             font-size: 13px;
             flex-shrink: 0;
         }
-        
         .input-btn:hover {
             background: rgba(253, 145, 80, 0.1);
             color: var(--primary);
             transform: scale(1.05);
         }
-        
         .input-btn.recording {
             color: var(--danger);
             background: rgba(239, 68, 68, 0.1);
             animation: pulse 1s infinite;
         }
-        
         #send-btn {
             width: 50px;
             height: 50px;
@@ -588,18 +508,15 @@
             box-shadow: var(--shadow-soft);
             flex-shrink: 0;
         }
-        
         #send-btn:hover:not(:disabled) {
             transform: translateY(-2px) scale(1.05);
             box-shadow: var(--shadow-medium);
         }
-        
         #send-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
         .typing-indicator {
             display: none;
             padding: 12px 16px;
@@ -612,7 +529,6 @@
             -webkit-backdrop-filter: blur(10px);
             box-shadow: var(--shadow-soft);
         }
-        
         .typing-indicator span {
             height: 6px;
             width: 6px;
@@ -623,11 +539,9 @@
             border-radius: 50%;
             opacity: 0.4;
         }
-        
         .typing-indicator span:nth-of-type(1) { animation: typing 1s infinite; }
         .typing-indicator span:nth-of-type(2) { animation: typing 1s 0.33s infinite; }
         .typing-indicator span:nth-of-type(3) { animation: typing 1s 0.66s infinite; }
-        
         @keyframes typing {
             0%, 100% {
                 transform: translateY(0);
@@ -638,7 +552,6 @@
                 opacity: 1;
             }
         }
-        
         .preview-item {
             display: flex;
             align-items: center;
@@ -650,11 +563,9 @@
             border: 1px solid var(--light-border);
             box-shadow: var(--shadow-soft);
         }
-        
         .preview-item:last-child {
             margin-bottom: 0;
         }
-        
         .preview-icon {
             width: 28px;
             height: 28px;
@@ -665,22 +576,18 @@
             font-size: 12px;
             flex-shrink: 0;
         }
-        
         .preview-icon.image {
             background: rgba(34, 197, 94, 0.1);
             color: var(--success);
         }
-        
         .preview-icon.audio {
             background: rgba(245, 158, 11, 0.1);
             color: var(--warning);
         }
-        
         .preview-info {
             flex: 1;
             min-width: 0;
         }
-        
         .preview-name {
             font-weight: 500;
             font-size: 12px;
@@ -689,12 +596,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
         .preview-size {
             font-size: 10px;
             color: var(--text-secondary);
         }
-        
         .remove-file {
             background: none;
             border: none;
@@ -705,11 +610,9 @@
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
-        
         .remove-file:hover {
             background: rgba(239, 68, 68, 0.1);
         }
-        
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -727,12 +630,10 @@
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        
         .modal {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -746,31 +647,26 @@
             transform: translateY(-20px) scale(0.95);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .modal-overlay.active .modal {
             transform: translateY(0) scale(1);
         }
-        
         .modal-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--text-primary);
         }
-        
         .modal-text {
             color: var(--text-secondary);
             line-height: 1.5;
             margin-bottom: 20px;
             font-size: 14px;
         }
-        
         .modal-actions {
             display: flex;
             justify-content: flex-end;
             gap: 8px;
         }
-        
         .modal-btn {
             padding: 10px 16px;
             border-radius: 8px;
@@ -780,32 +676,26 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 13px;
         }
-        
         .modal-btn-cancel {
             background: rgba(100, 116, 139, 0.1);
             color: var(--text-primary);
             border: 1px solid var(--light-border);
         }
-        
         .modal-btn-cancel:hover {
             background: rgba(100, 116, 139, 0.15);
             transform: translateY(-1px);
         }
-        
         .modal-btn-confirm {
             background: linear-gradient(135deg, var(--danger), #dc2626);
             color: white;
         }
-        
         .modal-btn-confirm:hover {
             transform: translateY(-1px);
             box-shadow: var(--shadow-soft);
         }
-        
         .media-message {
             margin-top: 8px;
         }
-        
         .media-message img {
             max-width: 100%;
             max-height: 250px;
@@ -814,11 +704,9 @@
             transition: transform 0.2s ease;
             box-shadow: var(--shadow-soft);
         }
-        
         .media-message img:hover {
             transform: scale(1.02);
         }
-        
         .audio-player {
             display: flex;
             align-items: center;
@@ -829,7 +717,6 @@
             margin-top: 8px;
             box-shadow: var(--shadow-soft);
         }
-        
         .audio-play-btn {
             width: 32px;
             height: 32px;
@@ -844,398 +731,310 @@
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
-        
         .audio-play-btn:hover {
             transform: scale(1.05);
         }
-        
         .audio-info {
             flex: 1;
         }
-        
         .audio-duration {
             font-size: 11px;
             color: var(--text-secondary);
         }
-        
         .empty-conversations {
             padding: 32px 20px;
             text-align: center;
             color: var(--text-secondary);
         }
-        
         .empty-conversations i {
             font-size: 28px;
             margin-bottom: 12px;
             color: var(--accent);
         }
-        
         .empty-conversations p {
             margin-bottom: 6px;
             font-size: 13px;
         }
-        
         .loading {
             opacity: 0.6;
             pointer-events: none;
         }
-        
+
+        /* Responsive adjustments */
         @media (max-width: 1024px) {
             :root {
                 --sidebar-width: 280px;
             }
-            
             .sidebar {
                 position: absolute;
                 height: calc(100vh - var(--header-height));
                 z-index: 100;
                 transform: translateX(-100%);
             }
-            
             .sidebar.is-open {
                 transform: translateX(0);
             }
-            
             .message {
                 max-width: 80%;
             }
-            
             .nav-links {
                 display: none;
             }
         }
-        
+
         @media (max-width: 768px) {
             :root {
                 --sidebar-width: 260px;
                 --header-height: 60px;
             }
-            
             .header {
                 padding: 12px 16px;
             }
-            
             .logo {
                 height: 32px;
             }
-            
             .nav-title {
                 font-size: 16px;
             }
-            
             .chat-header {
                 padding: 12px 16px;
             }
-            
             .chat-title {
                 font-size: 16px;
             }
-            
             .toggle-sidebar {
                 padding: 6px;
                 font-size: 14px;
             }
-            
             #messages {
                 padding: 16px;
                 gap: 12px;
             }
-            
             .ai .avatar {
                 width: 32px;
                 height: 32px;
                 margin-right: 10px;
             }
-            
             .avatar-img {
                 width: 20px;
                 height: 20px;
             }
-
             .avatar1-img {
                 width: 16px;
                 height: 16px;
             }
-            
             .message {
                 max-width: 85%;
                 padding: 12px 14px;
                 font-size: 14px;
             }
-            
             #input-container {
                 padding: 12px 16px;
                 gap: 8px;
-                min-height: 70px;
+                min-height: 65px;
             }
-            
             .input-row {
                 gap: 6px;
             }
-            
             .input-wrapper {
                 min-height: 46px;
-                max-height: 100px;
+                max-height: 90px;
             }
-            
             #user-input {
                 padding: 10px 12px 32px 12px;
                 font-size: 14px;
                 max-height: 68px;
             }
-            
             .input-actions {
                 bottom: 4px;
                 left: 6px;
                 right: 6px;
-                gap: 3px;
+                gap: 4px;
             }
-            
             .input-btn {
                 padding: 5px;
                 font-size: 12px;
             }
-            
             #send-btn {
                 width: 46px;
                 height: 46px;
             }
-            
             .file-preview {
                 max-height: 80px;
                 padding: 8px;
             }
-            
             .preview-item {
                 gap: 6px;
                 padding: 6px;
             }
-            
             .preview-icon {
                 width: 24px;
                 height: 24px;
                 font-size: 10px;
             }
-            
             .preview-name {
                 font-size: 11px;
             }
-            
             .preview-size {
                 font-size: 9px;
             }
-            
             .delete-conversation {
                 opacity: 1;
             }
-            
-            .sidebar-header {
-                padding: 16px;
-            }
-            
-            .new-chat-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-            }
-            
-            .conversation-item {
-                padding: 10px 12px;
-                margin: 2px 8px;
-            }
-            
-            .conversation-title {
-                font-size: 12px;
-            }
-            
-            .conversation-preview {
-                font-size: 10px;
-            }
         }
-        
+
         @media (max-width: 480px) {
             :root {
                 --sidebar-width: 240px;
                 --header-height: 56px;
             }
-            
             .header {
                 padding: 10px 12px;
             }
-            
             .logo {
                 height: 28px;
             }
-            
             .nav-title {
                 font-size: 14px;
             }
-            
             .chat-header {
                 padding: 10px 12px;
             }
-            
             .chat-title {
                 font-size: 14px;
             }
-            
             #messages {
                 padding: 12px;
                 gap: 10px;
             }
-            
             .message {
                 max-width: 90%;
                 padding: 10px 12px;
                 font-size: 13px;
             }
-            
             .ai .avatar {
                 width: 28px;
                 height: 28px;
                 margin-right: 8px;
             }
-            
             .avatar-img {
                 width: 18px;
                 height: 18px;
             }
-
             .avatar1-img {
                 width: 14px;
                 height: 14px;
             }
-            
             #input-container {
                 padding: 10px 12px;
                 gap: 6px;
-                min-height: 65px;
+                min-height: 60px;
             }
-            
             .input-wrapper {
                 min-height: 42px;
-                max-height: 90px;
+                max-height: 80px;
             }
-            
             #user-input {
                 padding: 8px 10px 28px 10px;
                 font-size: 13px;
                 max-height: 62px;
             }
-            
             .input-actions {
                 bottom: 3px;
                 left: 4px;
                 right: 4px;
-                gap: 2px;
+                gap: 3px;
             }
-            
             .input-btn {
                 padding: 4px;
                 font-size: 11px;
             }
-            
+            /* HIDE AUDIO UPLOAD BUTTON ON VERY SMALL SCREENS TO SAVE SPACE */
+            #audio-btn {
+                display: none;
+            }
             #send-btn {
                 width: 42px;
                 height: 42px;
                 font-size: 13px;
             }
-            
             .file-preview {
                 max-height: 60px;
                 padding: 6px;
             }
-            
             .preview-item {
                 gap: 4px;
                 padding: 4px;
             }
-            
             .preview-icon {
                 width: 20px;
                 height: 20px;
                 font-size: 9px;
             }
-            
             .preview-name {
                 font-size: 10px;
             }
-            
             .preview-size {
                 font-size: 8px;
             }
-            
             .sidebar-header {
                 padding: 12px;
             }
-            
             .new-chat-btn {
                 padding: 8px 12px;
                 font-size: 12px;
                 gap: 6px;
             }
-            
             .conversation-item {
                 padding: 8px 10px;
                 margin: 1px 6px;
             }
-            
             .conversation-title {
                 font-size: 11px;
             }
-            
             .conversation-preview {
                 font-size: 9px;
             }
-            
             .conversation-date {
                 font-size: 8px;
             }
-            
             .modal {
                 padding: 20px;
                 margin: 16px;
             }
-            
             .modal-title {
                 font-size: 16px;
             }
-            
             .modal-text {
                 font-size: 13px;
             }
-            
             .modal-btn {
                 padding: 8px 12px;
                 font-size: 12px;
             }
         }
-        
+
         @media (max-height: 600px) {
             #input-container {
-                padding: 8px 12px;
-                min-height: 60px;
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+                min-height: 55px;
             }
-            
             .input-wrapper {
                 min-height: 40px;
-                max-height: 80px;
+                max-height: 70px;
             }
-            
             #user-input {
-                max-height: 50px;
-                padding-bottom: 26px;
+                max-height: 48px;
+                padding-bottom: 24px;
             }
-            
             .file-preview {
-                max-height: 50px;
+                max-height: 45px;
             }
-            
             #messages {
                 padding-bottom: 8px;
             }
         }
-        
-        /* Improved touch targets and accessibility */
+
         @media (pointer: coarse) {
             .input-btn,
             .delete-conversation,
@@ -1244,39 +1043,38 @@
                 min-width: 44px;
                 min-height: 44px;
             }
-            
             .conversation-item {
                 min-height: 60px;
             }
-            
             .new-chat-btn {
                 min-height: 48px;
             }
         }
-        
-        /* Safe area insets for devices with notches */
+
         @supports (padding: max(0px)) {
             .header {
                 padding-left: max(24px, env(safe-area-inset-left));
                 padding-right: max(24px, env(safe-area-inset-right));
             }
-            
             #input-container {
                 padding-bottom: max(16px, env(safe-area-inset-bottom));
             }
-            
             @media (max-width: 768px) {
                 .header {
                     padding-left: max(16px, env(safe-area-inset-left));
                     padding-right: max(16px, env(safe-area-inset-right));
                 }
-                
                 #input-container {
                     padding-bottom: max(12px, env(safe-area-inset-bottom));
                 }
             }
+            @media (max-width: 480px) {
+                #input-container {
+                    padding-bottom: max(10px, env(safe-area-inset-bottom));
+                }
+            }
         }
-        
+
         #file-input,
         #image-input,
         #audio-input {
@@ -1297,7 +1095,6 @@
             <a href="#" class="nav-link">Emergency</a>
         </div>
     </header>
-
     <div class="main-layout">
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -1313,7 +1110,6 @@
                 </div>
             </div>
         </div>
-
         <div class="main-container">
             <div class="chat-header">
                 <div class="chat-title-container">
@@ -1327,7 +1123,6 @@
                     <div class="status-indicator" title="Online"></div>
                 </div>
             </div>
-            
             <div id="chat-container">
                 <div id="messages">
                     <div class="typing-indicator">
@@ -1336,7 +1131,6 @@
                         <span></span>
                     </div>
                 </div>
-                
                 <div id="input-container">
                     <div class="file-preview" id="file-preview"></div>
                     <div class="input-row">
@@ -1346,6 +1140,7 @@
                                 <button class="input-btn" id="image-btn" title="Upload image" aria-label="Upload image">
                                     <i class="fas fa-image"></i>
                                 </button>
+                                <!-- Audio upload button hidden on ≤480px -->
                                 <button class="input-btn" id="audio-btn" title="Upload audio" aria-label="Upload audio">
                                     <i class="fas fa-microphone"></i>
                                 </button>
@@ -1362,10 +1157,8 @@
             </div>
         </div>
     </div>
-
     <input type="file" id="image-input" accept="image/*" multiple aria-label="Select images">
     <input type="file" id="audio-input" accept="audio/*" aria-label="Select audio file">
-
     <div class="modal-overlay" id="delete-modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-text">
         <div class="modal">
             <div class="modal-title" id="modal-title">Delete Conversation</div>
@@ -1376,62 +1169,46 @@
             </div>
         </div>
     </div>
-
     <script>
         const API_KEY = 'AIzaSyB8Oj7UA62CkR8TOn-Y_10KR6N4cWq5g0Y';
         const MODEL = 'gemini-2.5-flash-lite';
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
-
         const systemPrompt = `
 You are Rose — a warm, empathetic, and professional virtual health assistant. 
 Your role is to triage patients by analyzing their symptoms (via text, images, or audio) 
 and providing safe, preliminary clinical guidance with clear next steps.
-
 ========================
 CONVERSATION STYLE
 ========================
 1. Always start warmly and with empathy. 
    Example: "I'm sorry you're not feeling well — let's go through your symptoms together."
-
 2. Be conversational, not robotic. 
    Avoid rigid bullet points and heavy headers. Instead, weave your assessment into natural dialogue. 
    Example: Instead of "Possible Causes: Bronchitis (High confidence)", say:
    "From what you've described, this could most likely be bronchitis, since it often causes a cough that lasts several days. 
     Another possibility is post-nasal drip, which can irritate your throat. Asthma is less likely here, but still worth keeping in mind."
-
 3. Collect details step by step, asking no more than two questions at a time.
    Example: "Can you tell me how long the cough has been going on, and whether it's dry or producing mucus?"
-
 4. Show compassion when users describe discomfort:
    "That sounds uncomfortable. Let's work through it carefully so I can guide you."
-
 5. Keep answers concise, clear, and supportive. Use plain language — avoid medical jargon unless needed.
-
 ========================
 ANALYSIS FRAMEWORK (use conversationally)
 ========================
 When responding to symptoms, cover these elements but phrase them naturally:
-
 - **Likely causes**: Briefly mention the top 2–3 possibilities, with a short reason for each. Indicate likelihood conversationally ("most likely," "another possible cause," "less likely but worth noting").
-  
 - **Severity**: Indicate if symptoms sound mild, moderate, or more concerning, using reassuring but clear language. 
   Example: "From what you've shared, this sounds mild to moderate — it doesn't seem dangerous right now, but it's best to keep an eye on it."
-
 - **Red flags**: Mention a few important warning signs to watch for, but in plain speech. 
   Example: "If you notice shortness of breath, coughing up blood, or a high fever, please seek medical care right away."
-
 - **Triage recommendation**: Gently guide the patient to the right next step: emergency, doctor visit, pharmacist, or safe home care.
   Example: "Since your cough has lasted five days and isn't improving, I'd recommend checking in with a doctor to be safe."
-
 - **Practical guidance**: Offer actionable self-care tips in a friendly tone.
   Example: "Stay well hydrated, try using a humidifier if you have one, and make sure you're resting enough."
-
 - **Follow-up question**: End with 1–2 gentle questions to gather more info.
   Example: "Have you noticed any changes in the color of your mucus? And have you had any fever or chills?"
-
 - **Safety reminder**: Always clarify: 
   "This is just a preliminary assessment, not a diagnosis. Please see a healthcare professional to confirm."
-
 ========================
 PRIVACY & SAFETY
 ====================
@@ -1439,13 +1216,11 @@ PRIVACY & SAFETY
 - Always encourage professional care when appropriate.
 - If symptoms are unclear, say:
   "I don't have enough information to be sure. Could you share a bit more about your symptoms, or consider reaching out to a doctor?"
-
 ========================
 ENDING
 ========================
 Close warmly and with encouragement:
 "Thank you for sharing this with me. I hope you start to feel better soon, and I'm here if you need more guidance."
-
 ========================
 RESTRICTIONS
 ========================
@@ -1453,14 +1228,11 @@ RESTRICTIONS
   "I'm here to help you with your health today. Could you tell me more about your symptoms?"
 - Stay focused on health triage.
 - Always be empathetic, conversational, and clinically safe.
-
 Remember: You are Rose, a caring and intelligent health assistant. 
 Your mission is to provide patients with a safe, supportive, and conversational preliminary assessment, 
 helping them decide whether to seek hospital care, consult a doctor, visit a pharmacist, or manage symptoms at home.
 `;
-
         const initialGreeting = "Hi there! I'm Rose, your AI health assistant. I'm here to help you understand your symptoms and guide you to the right care. How are you feeling today?";
-
         let conversations = JSON.parse(sessionStorage.getItem('medhub_conversations')) || [];
         let currentConversationId = null;
         let conversationHistory = [];
@@ -1469,7 +1241,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         let isRecording = false;
         let mediaRecorder = null;
         let recordedChunks = [];
-
         const messagesDiv = document.getElementById('messages');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
@@ -1483,7 +1254,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const cancelDeleteBtn = document.getElementById('cancel-delete');
         const confirmDeleteBtn = document.getElementById('confirm-delete');
         const filePreview = document.getElementById('file-preview');
-
         const imageBtn = document.getElementById('image-btn');
         const audioBtn = document.getElementById('audio-btn');
         const voiceBtn = document.getElementById('voice-btn');
@@ -1491,7 +1261,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const audioInput = document.getElementById('audio-input');
 
         function isSmallScreen() { return window.innerWidth <= 1024; }
-        
+
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -1518,7 +1288,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
                 .replace(/\n/g, '<br>')
                 .replace(/#{1,6}\s?(.*?)(?=\n|$)/g, '<strong>$1</strong>')
-                .replace(/\-\s(.*?)(?=\n|$)/g, '• $1<br>')
+                .replace(/-\s(.*?)(?=\n|$)/g, '• $1<br>')
                 .replace(/\d+\.\s(.*?)(?=\n|$)/g, '$1<br>');
             return formattedText;
         }
@@ -1557,7 +1327,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         }
 
         function setupEventListeners() {
-            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                     e.preventDefault();
@@ -1571,7 +1340,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 }
             });
 
-            // Close sidebar when clicking outside on mobile
             document.addEventListener('click', (e) => {
                 if (isSmallScreen() && sidebar.classList.contains('is-open') &&
                     !sidebar.contains(e.target) && !toggleSidebarBtn.contains(e.target)) {
@@ -1579,7 +1347,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 }
             });
 
-            // Handle window resize
             window.addEventListener('resize', () => {
                 if (isSmallScreen()) {
                     sidebar.classList.remove('is-closed');
@@ -1627,7 +1394,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 filePreview.innerHTML = '';
                 return;
             }
-            
             filePreview.classList.add('show');
             filePreview.innerHTML = attachedFiles.map((file, index) => `
                 <div class="preview-item">
@@ -1656,17 +1422,14 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     mediaRecorder = new MediaRecorder(stream);
                     recordedChunks = [];
-                    
                     mediaRecorder.ondataavailable = (event) => {
                         if (event.data.size > 0) {
                             recordedChunks.push(event.data);
                         }
                     };
-                    
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(recordedChunks, { type: 'audio/wav' });
                         const file = new File([blob], `voice-${Date.now()}.wav`, { type: 'audio/wav' });
-                        
                         try {
                             const base64 = await fileToBase64(file);
                             attachedFiles.push({ 
@@ -1680,10 +1443,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                             console.error('Error processing recording:', error);
                             alert('Error processing voice recording. Please try again.');
                         }
-                        
                         stream.getTracks().forEach(track => track.stop());
                     };
-                    
                     mediaRecorder.start();
                     isRecording = true;
                     voiceBtn.classList.add('recording');
@@ -1709,7 +1470,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 createdAt: new Date().toISOString(),
                 messages: []
             };
-            
             conversations.unshift(newConversation);
             saveConversations();
             renderConversationsList();
@@ -1717,29 +1477,21 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         }
 
         function loadConversation(conversationId) {
-            // Clear messages
             messagesDiv.innerHTML = '';
             messagesDiv.appendChild(typingIndicator);
-            
             const conversation = conversations.find(c => c.id === conversationId);
             if (!conversation) return;
-            
             currentConversationId = conversationId;
-            
-            // Update active conversation
             document.querySelectorAll('.conversation-item').forEach(item => {
                 item.classList.remove('active');
                 if (item.dataset.id === conversationId) {
                     item.classList.add('active');
                 }
             });
-            
-            // Load messages
             if (conversation.messages.length > 0) {
                 conversation.messages.forEach(msg => {
                     addMessage(msg.text, msg.isUser, msg.attachments);
                 });
-                
                 conversationHistory = conversation.messages.map(msg => ({
                     role: msg.isUser ? "user" : "model",
                     parts: [{ text: msg.text }].concat(
@@ -1749,7 +1501,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     )
                 }));
             } else {
-                // Show initial greeting
                 typingIndicator.style.display = 'flex';
                 setTimeout(() => {
                     typingIndicator.style.display = 'none';
@@ -1766,27 +1517,22 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function addMessageToConversation(text, isUser, attachments = null) {
             const conversation = conversations.find(c => c.id === currentConversationId);
             if (!conversation) return;
-            
             conversation.messages.push({ 
                 text, 
                 isUser, 
                 attachments, 
                 timestamp: new Date().toISOString() 
             });
-            
-            // Update conversation title
             if (isUser && conversation.title === 'New Conversation') {
                 conversation.title = text.slice(0, 35) + (text.length > 35 ? '...' : '');
                 renderConversationsList();
             }
-            
             saveConversations();
         }
 
         function deleteConversation(conversationId) {
             conversations = conversations.filter(c => c.id !== conversationId);
             saveConversations();
-            
             if (currentConversationId === conversationId) {
                 if (conversations.length > 0) {
                     loadConversation(conversations[0].id);
@@ -1794,7 +1540,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     createNewConversation();
                 }
             }
-            
             renderConversationsList();
         }
 
@@ -1812,22 +1557,17 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 conversationsList.innerHTML = '';
                 return;
             }
-            
             emptyConversations.style.display = 'none';
             conversationsList.innerHTML = '';
-            
             conversations.forEach(conversation => {
                 const lastMessage = conversation.messages.length > 0 
                     ? conversation.messages[conversation.messages.length - 1].text 
                     : 'No messages yet';
-                
                 const item = document.createElement('div');
                 item.className = `conversation-item ${conversation.id === currentConversationId ? 'active' : ''}`;
                 item.dataset.id = conversation.id;
-                
                 const date = new Date(conversation.createdAt);
                 const formattedDate = date.toLocaleDateString();
-                
                 item.innerHTML = `
                     <div class="conversation-content">
                         <div class="conversation-title">${conversation.title}</div>
@@ -1838,7 +1578,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                         <i class="fas fa-trash"></i>
                     </button>
                 `;
-                
                 item.addEventListener('click', (e) => {
                     if (!e.target.closest('.delete-conversation')) {
                         loadConversation(conversation.id);
@@ -1847,13 +1586,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                         }
                     }
                 });
-                
                 const deleteBtn = item.querySelector('.delete-conversation');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     showDeleteModal(conversation.id);
                 });
-                
                 conversationsList.appendChild(item);
             });
         }
@@ -1871,11 +1608,9 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function addMessage(text, isUser, attachments = null) {
             const messageRow = document.createElement('div');
             messageRow.classList.add('message-row', isUser ? 'user' : 'ai');
-            
             if (!isUser) {
                 const avatarDiv = document.createElement('div');
                 avatarDiv.classList.add('avatar');
-                
                 const avatarContent = document.createElement('img');
                 avatarContent.src = 'images/image-removebg-preview.png';
                 avatarContent.alt = 'Rose';
@@ -1890,10 +1625,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 avatarDiv.appendChild(avatarContent);
                 messageRow.appendChild(avatarDiv);
             }
-            
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            
             const textDiv = document.createElement('div');
             if (!isUser) {
                 textDiv.innerHTML = formatAIResponse(text);
@@ -1901,12 +1634,9 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 textDiv.textContent = text;
             }
             messageDiv.appendChild(textDiv);
-            
-            // Handle attachments
             if (attachments && attachments.length > 0) {
                 const mediaDiv = document.createElement('div');
                 mediaDiv.classList.add('media-message');
-                
                 attachments.forEach(attachment => {
                     if (attachment.type.startsWith('image/')) {
                         const img = document.createElement('img');
@@ -1926,12 +1656,10 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                                 <div class="audio-duration">Audio file</div>
                             </div>
                         `;
-                        
                         const audio = document.createElement('audio');
                         audio.src = `data:${attachment.type};base64,${attachment.data}`;
                         audio.style.display = 'none';
                         audioPlayer.appendChild(audio);
-                        
                         const playBtn = audioPlayer.querySelector('.audio-play-btn');
                         playBtn.addEventListener('click', () => {
                             if (audio.paused) {
@@ -1944,69 +1672,53 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                                 playBtn.setAttribute('aria-label', 'Play audio');
                             }
                         });
-                        
                         audio.addEventListener('ended', () => {
                             playBtn.innerHTML = '<i class="fas fa-play"></i>';
                             playBtn.setAttribute('aria-label', 'Play audio');
                         });
-                        
                         mediaDiv.appendChild(audioPlayer);
                     }
                 });
                 messageDiv.appendChild(mediaDiv);
             }
-            
             const timeSpan = document.createElement('div');
             timeSpan.classList.add('message-time');
             const now = new Date();
             timeSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             messageDiv.appendChild(timeSpan);
-            
             messageRow.appendChild(messageDiv);
             messagesDiv.appendChild(messageRow);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        // Auto-resize textarea
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, isSmallScreen() ? 80 : 120) + 'px';
+            const maxHeight = window.innerWidth <= 480 ? 70 : (window.innerWidth <= 768 ? 80 : 120);
+            this.style.height = Math.min(this.scrollHeight, maxHeight) + 'px';
         });
 
         async function sendMessage() {
             const message = userInput.value.trim();
             if (!message && attachedFiles.length === 0) return;
-            
-            // Disable send button
             sendBtn.disabled = true;
             sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            
-            // Add user message
             const displayMessage = message || 'Shared media files';
             addMessage(displayMessage, true, attachedFiles.length > 0 ? [...attachedFiles] : null);
             addMessageToConversation(displayMessage, true, attachedFiles.length > 0 ? [...attachedFiles] : null);
-            
-            // Clear input
             userInput.value = '';
             userInput.style.height = 'auto';
             const currentAttachments = [...attachedFiles];
             attachedFiles = [];
             updateFilePreview();
-            
-            // Show typing indicator
             typingIndicator.style.display = 'flex';
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            
-            // Prepare API request
             const parts = [{ text: message || 'Please analyze the attached media files.' }];
             currentAttachments.forEach(file => {
                 parts.push({
                     inline_data: { mime_type: file.type, data: file.data }
                 });
             });
-            
             conversationHistory.push({ role: "user", parts });
-            
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -2022,31 +1734,24 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                         }
                     })
                 });
-                
                 if (!response.ok) {
                     throw new Error(`API Error: ${response.status} - ${await response.text()}`);
                 }
-                
                 const data = await response.json();
                 const aiResponse = data.candidates[0].content.parts[0].text;
-                
                 typingIndicator.style.display = 'none';
                 addMessage(aiResponse, false);
                 addMessageToConversation(aiResponse, false);
                 conversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
-                
             } catch (error) {
                 console.error('API Error:', error);
                 typingIndicator.style.display = 'none';
-                
                 let errorMessage = 'I apologize, but I\'m having trouble connecting right now. Please check your internet connection and try again. If the problem persists, please refresh the page.';
-                
                 if (error.message.includes('429')) {
                     errorMessage = 'I\'m receiving too many requests right now. Please wait a moment and try again.';
                 } else if (error.message.includes('403')) {
                     errorMessage = 'There seems to be an authentication issue. Please refresh the page and try again.';
                 }
-                
                 addMessage(errorMessage, false);
                 addMessageToConversation(errorMessage, false);
             } finally {
@@ -2055,18 +1760,14 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             }
         }
 
-        // Event listeners
         sendBtn.addEventListener('click', sendMessage);
-        
         userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
             }
         });
-
         newChatBtn.addEventListener('click', createNewConversation);
-        
         toggleSidebarBtn.addEventListener('click', () => {
             if (isSmallScreen()) {
                 sidebar.classList.toggle('is-open');
@@ -2074,7 +1775,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 sidebar.classList.toggle('is-closed');
             }
         });
-        
         cancelDeleteBtn.addEventListener('click', hideDeleteModal);
         confirmDeleteBtn.addEventListener('click', () => {
             if (conversationToDelete) {
@@ -2082,14 +1782,12 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 hideDeleteModal();
             }
         });
-        
         deleteModal.addEventListener('click', (e) => {
             if (e.target === deleteModal) {
                 hideDeleteModal();
             }
         });
 
-        // Initialize app
         initApp();
     </script>
 </body>
