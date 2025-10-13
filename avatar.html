@@ -27,6 +27,7 @@
             --user-bubble: #dcf8c6;
             --sidebar-width: 300px;
             --header-height: 70px;
+            --input-max-height: 220px;
             --glass-bg: rgba(255, 255, 255, 0.95);
             --glass-border: rgba(255, 255, 255, 0.18);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -309,6 +310,7 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
             min-height: 0;
+            padding-bottom: calc(var(--input-max-height) + 20px);
             -webkit-overflow-scrolling: touch;
         }
         #messages::-webkit-scrollbar {
@@ -636,7 +638,10 @@
         }
         /* ===== MODERN INPUT BAR (ChatGPT Style) ===== */
         #input-container {
-            flex-shrink: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: white;
             padding: 12px 16px;
             border-top: 1px solid var(--light-border);
@@ -645,7 +650,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            max-height: 220px;
+            max-height: var(--input-max-height);
             overflow: visible;
         }
         .file-preview {
@@ -774,6 +779,7 @@
         }
         /* Responsive */
         @media (max-width: 768px) {
+            :root { --input-max-height: 180px; }
             .input-wrapper {
                 padding: 6px 10px;
             }
@@ -793,6 +799,7 @@
             }
         }
         @media (max-width: 480px) {
+            :root { --input-max-height: 160px; }
             #input-container {
                 padding: 8px 12px;
             }
@@ -832,7 +839,7 @@
             .nav-title { font-size: 16px; }
             .chat-header { padding: 12px 16px; }
             .chat-title { font-size: 16px; }
-            #messages { padding: 16px; gap: 12px; }
+            #messages { padding: 16px; gap: 12px; padding-bottom: calc(var(--input-max-height) + 16px); }
             .ai .avatar { width: 32px; height: 32px; margin-right: 10px; }
             .avatar-img { width: 20px; height: 20px; }
             .message { max-width: 85%; padding: 12px 14px; font-size: 14px; }
@@ -844,15 +851,13 @@
             .nav-title { font-size: 14px; }
             .chat-header { padding: 10px 12px; }
             .chat-title { font-size: 14px; }
-            #messages { padding: 12px; gap: 10px; }
+            #messages { padding: 12px; gap: 10px; padding-bottom: calc(var(--input-max-height) + 12px); }
             .message { max-width: 90%; padding: 10px 12px; font-size: 13px; }
             .ai .avatar { width: 28px; height: 28px; margin-right: 8px; }
             .avatar-img { width: 18px; height: 18px; }
         }
         @media (max-height: 600px) {
-            #input-container {
-                max-height: 150px;
-            }
+            :root { --input-max-height: 150px; }
             #input-container {
                 padding-bottom: max(8px, env(safe-area-inset-bottom));
             }
@@ -1490,7 +1495,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             messageDiv.appendChild(timeSpan);
             messageRow.appendChild(messageDiv);
             messagesDiv.appendChild(messageRow);
-            scrollToBottom();
+            setTimeout(scrollToBottom, 0);
         }
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
