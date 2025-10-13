@@ -6,7 +6,7 @@
     <title>DAS medhub - Virtual Health Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ====== KEEP ALL EXISTING STYLES EXCEPT INPUT-RELATED ONES ====== */
+        /* ====== KEEP ALL EXISTING STYLES EXCEPT LAYOUT & INPUT-RELATED ONES ====== */
         html {
             height: 100%;
         }
@@ -44,9 +44,10 @@
             color: var(--text-primary);
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
             line-height: 1.6;
             -webkit-overflow-scrolling: touch;
+            overflow: hidden;
         }
         .header {
             background: var(--glass-bg);
@@ -57,10 +58,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            z-index: 10;
+            z-index: 100;
             height: var(--header-height);
             box-shadow: var(--shadow-medium);
-            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
         }
         .logo-container {
             display: flex;
@@ -99,7 +103,10 @@
         .main-layout {
             display: flex;
             flex: 1;
+            height: calc(100vh - var(--header-height));
+            margin-top: var(--header-height);
             min-height: 0;
+            overflow: hidden;
         }
         .sidebar {
             width: var(--sidebar-width);
@@ -236,6 +243,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             min-height: 0;
+            position: relative;
         }
         .chat-header {
             background: transparent;
@@ -288,6 +296,7 @@
             flex-direction: column;
             overflow: hidden;
             min-height: 0;
+            position: relative;
         }
         #messages {
             flex: 1;
@@ -300,6 +309,7 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
             min-height: 0;
+            -webkit-overflow-scrolling: touch;
         }
         #messages::-webkit-scrollbar {
             width: 6px;
@@ -624,11 +634,9 @@
             opacity: 0.6;
             pointer-events: none;
         }
-
         /* ===== MODERN INPUT BAR (ChatGPT Style) ===== */
         #input-container {
-            position: sticky;
-            bottom: 0;
+            flex-shrink: 0;
             background: white;
             padding: 12px 16px;
             border-top: 1px solid var(--light-border);
@@ -637,10 +645,9 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            max-height: 200px;
+            max-height: 220px;
             overflow: visible;
         }
-
         .file-preview {
             display: none;
             padding: 10px;
@@ -655,7 +662,6 @@
         .file-preview.show {
             display: block;
         }
-
         .input-wrapper {
             display: flex;
             align-items: flex-end;
@@ -671,7 +677,6 @@
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(0, 190, 100, 0.15);
         }
-
         #user-input {
             flex: 1;
             resize: none;
@@ -688,13 +693,11 @@
         #user-input::placeholder {
             color: var(--text-secondary);
         }
-
         .input-actions-bar {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .input-btn-toggle {
             width: 36px;
             height: 36px;
@@ -712,7 +715,6 @@
             background: var(--primary-light);
             color: white;
         }
-
         .input-actions-menu {
             display: none;
             position: absolute;
@@ -730,7 +732,6 @@
         .input-actions-menu.active {
             display: flex;
         }
-
         .input-action-btn {
             width: 40px;
             height: 40px;
@@ -748,7 +749,6 @@
             background: var(--primary-light);
             color: white;
         }
-
         #send-btn {
             width: 44px;
             height: 44px;
@@ -772,7 +772,6 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
-
         /* Responsive */
         @media (max-width: 768px) {
             .input-wrapper {
@@ -793,7 +792,6 @@
                 padding: 8px;
             }
         }
-
         @media (max-width: 480px) {
             #input-container {
                 padding: 8px 12px;
@@ -809,12 +807,12 @@
                 display: none;
             }
         }
-
         /* Keep other responsive rules */
         @media (max-width: 1024px) {
             :root { --sidebar-width: 280px; }
             .sidebar {
                 position: absolute;
+                top: var(--header-height);
                 height: calc(100vh - var(--header-height));
                 z-index: 100;
                 transform: translateX(-100%);
@@ -824,7 +822,6 @@
             }
             .nav-links { display: none; }
         }
-
         @media (max-width: 768px) {
             :root {
                 --sidebar-width: 260px;
@@ -840,7 +837,6 @@
             .avatar-img { width: 20px; height: 20px; }
             .message { max-width: 85%; padding: 12px 14px; font-size: 14px; }
         }
-
         @media (max-width: 480px) {
             :root { --sidebar-width: 240px; --header-height: 56px; }
             .header { padding: 10px 12px; }
@@ -853,13 +849,14 @@
             .ai .avatar { width: 28px; height: 28px; margin-right: 8px; }
             .avatar-img { width: 18px; height: 18px; }
         }
-
         @media (max-height: 600px) {
+            #input-container {
+                max-height: 150px;
+            }
             #input-container {
                 padding-bottom: max(8px, env(safe-area-inset-bottom));
             }
         }
-
         @supports (padding: max(0px)) {
             .header {
                 padding-left: max(24px, env(safe-area-inset-left));
@@ -869,11 +866,35 @@
                 padding-bottom: max(12px, env(safe-area-inset-bottom));
             }
         }
-
         #file-input,
         #image-input,
         #audio-input {
             display: none;
+        }
+
+        /* === CRITICAL FIXES FOR SCROLL BEHAVIOR === */
+        body {
+            overflow: hidden;
+        }
+        .main-layout {
+            flex: 1;
+            overflow: hidden;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex: 1;
+        }
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
     </style>
 </head>
@@ -954,10 +975,8 @@
             </div>
         </div>
     </div>
-
     <input type="file" id="image-input" accept="image/*" multiple>
     <input type="file" id="audio-input" accept="audio/*">
-    
     <div class="modal-overlay" id="delete-modal" role="dialog">
         <div class="modal">
             <div class="modal-title">Delete Conversation</div>
@@ -968,7 +987,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // ===== KEEP ALL EXISTING JS LOGIC =====
         const API_KEY = 'AIzaSyB8Oj7UA62CkR8TOn-Y_10KR6N4cWq5g0Y';
@@ -978,52 +996,38 @@
 You are Rose — a warm, empathetic, and professional virtual health assistant. 
 Your role is to triage patients by analyzing their symptoms (via text, images, audio, or video) 
 and providing safe, preliminary clinical guidance with clear next steps.
-
 ========================
 CONVERSATION STYLE
 ========================
 1. Always start warmly and with empathy. 
    Example: "I’m sorry you’re not feeling well — let’s go through your symptoms together."
-
 2. Be conversational, not robotic. 
    Avoid rigid bullet points and heavy headers. Instead, weave your assessment into natural dialogue. 
    Example: Instead of “Possible Causes: Bronchitis (High confidence)”, say:
    "From what you’ve described, this could most likely be bronchitis, since it often causes a cough that lasts several days. 
     Another possibility is post-nasal drip, which can irritate your throat. Asthma is less likely here, but still worth keeping in mind."
-
 3. Collect details step by step, asking no more than two questions at a time.
    Example: "Can you tell me how long the cough has been going on, and whether it’s dry or producing mucus?"
-
 4. Show compassion when users describe discomfort:
    "That sounds uncomfortable. Let’s work through it carefully so I can guide you."
-
 5. Keep answers concise, clear, and supportive. Use plain language — avoid medical jargon unless needed.
-
 ========================
 ANALYSIS FRAMEWORK (use conversationally)
 ========================
 When responding to symptoms, cover these elements but phrase them naturally:
-
 - **Likely causes**: Briefly mention the top 2–3 possibilities, with a short reason for each. Indicate likelihood conversationally (“most likely,” “another possible cause,” “less likely but worth noting”).
-  
 - **Severity**: Indicate if symptoms sound mild, moderate, or more concerning, using reassuring but clear language. 
   Example: "From what you’ve shared, this sounds mild to moderate — it doesn’t seem dangerous right now, but it’s best to keep an eye on it."
-
 - **Red flags**: Mention a few important warning signs to watch for, but in plain speech. 
   Example: "If you notice shortness of breath, coughing up blood, or a high fever, please seek medical care right away."
-
 - **Triage recommendation**: Gently guide the patient to the right next step: emergency, doctor visit, pharmacist, or safe home care.
   Example: "Since your cough has lasted five days and isn’t improving, I’d recommend checking in with a doctor to be safe."
-
 - **Practical guidance**: Offer enough, actionable self-care tips in a friendly tone.
   Example: "Stay well hydrated, try using a humidifier if you have one, and make sure you’re resting enough."
-
 - **Follow-up question**: End with 1–2 gentle questions to gather more info.
   Example: "Have you noticed any changes in the color of your mucus? And have you had any fever or chills?"
-
 - **Safety reminder**: Always clarify: 
   "This is just a preliminary assessment, not a diagnosis. Please see a healthcare professional to confirm."
-
 ========================
 PRIVACY & SAFETY
 ====================
@@ -1031,13 +1035,11 @@ PRIVACY & SAFETY
 - Always encourage professional care when appropriate.
 - If symptoms are unclear, say:
   "I don’t have enough information to be sure. Could you share a bit more about your symptoms, or consider reaching out to a doctor?"
-
 ========================
 ENDING
 ========================
 Close warmly and with encouragement:
 "Thank you for sharing this with me. I hope you start to feel better soon, and I’m here if you need more guidance."
-
 ========================
 RESTRICTIONS
 ========================
@@ -1045,7 +1047,6 @@ RESTRICTIONS
   "I’m here to help you with your health today. Could you tell me more about your symptoms?"
 - Stay focused on health triage.
 - Always be empathetic, conversational, and clinically safe.
-
 Remember: You are Rose, a caring and intelligent health assistant. 
 Your mission is to provide patients with a safe, supportive, and conversational preliminary assessment, 
 helping them decide whether to seek hospital care, consult a doctor, visit a pharmacist, or manage symptoms at home.
@@ -1059,7 +1060,6 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         let isRecording = false;
         let mediaRecorder = null;
         let recordedChunks = [];
-
         // DOM Elements
         const messagesDiv = document.getElementById('messages');
         const userInput = document.getElementById('user-input');
@@ -1076,14 +1076,12 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         const filePreview = document.getElementById('file-preview');
         const imageInput = document.getElementById('image-input');
         const audioInput = document.getElementById('audio-input');
-
         // NEW: Action buttons
         const toggleActionsBtn = document.getElementById('toggle-actions');
         const actionsMenu = document.getElementById('actions-menu');
         const imageAction = document.getElementById('image-action');
         const audioAction = document.getElementById('audio-action');
         const voiceAction = document.getElementById('voice-action');
-
         function isSmallScreen() { return window.innerWidth <= 1024; }
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
@@ -1120,10 +1118,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 reader.onerror = error => reject(error);
             });
         }
+        function scrollToBottom() {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
         function handleInputFocus() {
-            setTimeout(() => {
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 100);
+            setTimeout(scrollToBottom, 100);
         }
         function initApp() {
             renderConversationsList();
@@ -1135,6 +1134,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             setupMediaInputs();
             setupEventListeners();
             userInput.addEventListener('focus', handleInputFocus);
+            // Ensure initial scroll to bottom for visibility
+            scrollToBottom();
         }
         function setupEventListeners() {
             document.addEventListener('keydown', (e) => {
@@ -1165,6 +1166,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 } else {
                     sidebar.classList.remove('is-open');
                 }
+                // Re-scroll on resize for small screens
+                scrollToBottom();
             });
         }
         function setupMediaInputs() {
@@ -1196,6 +1199,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             }
             updateFilePreview();
             event.target.value = '';
+            scrollToBottom();
         }
         function updateFilePreview() {
             if (attachedFiles.length === 0) {
@@ -1315,6 +1319,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     }];
                 }, 1000);
             }
+            // Ensure scroll to bottom after load
+            setTimeout(scrollToBottom, 100);
         }
         function addMessageToConversation(text, isUser, attachments = null) {
             const conversation = conversations.find(c => c.id === currentConversationId);
@@ -1484,12 +1490,13 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             messageDiv.appendChild(timeSpan);
             messageRow.appendChild(messageDiv);
             messagesDiv.appendChild(messageRow);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            scrollToBottom();
         }
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
             const maxHeight = window.innerWidth <= 480 ? 70 : (window.innerWidth <= 768 ? 80 : 120);
             this.style.height = Math.min(this.scrollHeight, maxHeight) + 'px';
+            scrollToBottom();
         });
         async function sendMessage() {
             const message = userInput.value.trim();
@@ -1505,7 +1512,7 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             attachedFiles = [];
             updateFilePreview();
             typingIndicator.style.display = 'flex';
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            scrollToBottom();
             const parts = [{ text: message || 'Please analyze the attached media files.' }];
             currentAttachments.forEach(file => {
                 parts.push({
@@ -1580,13 +1587,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 hideDeleteModal();
             }
         });
-
         // NEW: Toggle action menu
         toggleActionsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             actionsMenu.classList.toggle('active');
         });
-
         initApp();
     </script>
 </body>
