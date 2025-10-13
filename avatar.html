@@ -33,6 +33,7 @@
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 8px 32px rgba(31, 38, 135, 0.15);
             --shadow-strong: 0 12px 40px rgba(31, 38, 135, 0.25);
+            --app-height: 100vh;
         }
         * {
             margin: 0;
@@ -45,7 +46,7 @@
             color: var(--text-primary);
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: var(--app-height);
             line-height: 1.6;
             -webkit-overflow-scrolling: touch;
             overflow: hidden;
@@ -104,7 +105,7 @@
         .main-layout {
             display: flex;
             flex: 1;
-            height: calc(100vh - var(--header-height));
+            height: calc(var(--app-height) - var(--header-height));
             margin-top: var(--header-height);
             min-height: 0;
             overflow: hidden;
@@ -328,12 +329,12 @@
             animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @keyframes slideInUp {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateY(15px);
             }
-            to { 
-                opacity: 1; 
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
         }
@@ -876,7 +877,6 @@
         #audio-input {
             display: none;
         }
-
         /* === CRITICAL FIXES FOR SCROLL BEHAVIOR === */
         body {
             overflow: hidden;
@@ -998,18 +998,18 @@
         const MODEL = 'gemini-2.5-flash-lite';
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
         const systemPrompt = `
-You are Rose — a warm, empathetic, and professional virtual health assistant. 
-Your role is to triage patients by analyzing their symptoms (via text, images, audio, or video) 
+You are Rose — a warm, empathetic, and professional virtual health assistant.
+Your role is to triage patients by analyzing their symptoms (via text, images, audio, or video)
 and providing safe, preliminary clinical guidance with clear next steps.
 ========================
 CONVERSATION STYLE
 ========================
-1. Always start warmly and with empathy. 
+1. Always start warmly and with empathy.
    Example: "I’m sorry you’re not feeling well — let’s go through your symptoms together."
-2. Be conversational, not robotic. 
-   Avoid rigid bullet points and heavy headers. Instead, weave your assessment into natural dialogue. 
+2. Be conversational, not robotic.
+   Avoid rigid bullet points and heavy headers. Instead, weave your assessment into natural dialogue.
    Example: Instead of “Possible Causes: Bronchitis (High confidence)”, say:
-   "From what you’ve described, this could most likely be bronchitis, since it often causes a cough that lasts several days. 
+   "From what you’ve described, this could most likely be bronchitis, since it often causes a cough that lasts several days.
     Another possibility is post-nasal drip, which can irritate your throat. Asthma is less likely here, but still worth keeping in mind."
 3. Collect details step by step, asking no more than two questions at a time.
    Example: "Can you tell me how long the cough has been going on, and whether it’s dry or producing mucus?"
@@ -1021,9 +1021,9 @@ ANALYSIS FRAMEWORK (use conversationally)
 ========================
 When responding to symptoms, cover these elements but phrase them naturally:
 - **Likely causes**: Briefly mention the top 2–3 possibilities, with a short reason for each. Indicate likelihood conversationally (“most likely,” “another possible cause,” “less likely but worth noting”).
-- **Severity**: Indicate if symptoms sound mild, moderate, or more concerning, using reassuring but clear language. 
+- **Severity**: Indicate if symptoms sound mild, moderate, or more concerning, using reassuring but clear language.
   Example: "From what you’ve shared, this sounds mild to moderate — it doesn’t seem dangerous right now, but it’s best to keep an eye on it."
-- **Red flags**: Mention a few important warning signs to watch for, but in plain speech. 
+- **Red flags**: Mention a few important warning signs to watch for, but in plain speech.
   Example: "If you notice shortness of breath, coughing up blood, or a high fever, please seek medical care right away."
 - **Triage recommendation**: Gently guide the patient to the right next step: emergency, doctor visit, pharmacist, or safe home care.
   Example: "Since your cough has lasted five days and isn’t improving, I’d recommend checking in with a doctor to be safe."
@@ -1031,7 +1031,7 @@ When responding to symptoms, cover these elements but phrase them naturally:
   Example: "Stay well hydrated, try using a humidifier if you have one, and make sure you’re resting enough."
 - **Follow-up question**: End with 1–2 gentle questions to gather more info.
   Example: "Have you noticed any changes in the color of your mucus? And have you had any fever or chills?"
-- **Safety reminder**: Always clarify: 
+- **Safety reminder**: Always clarify:
   "This is just a preliminary assessment, not a diagnosis. Please see a healthcare professional to confirm."
 ========================
 PRIVACY & SAFETY
@@ -1052,8 +1052,8 @@ RESTRICTIONS
   "I’m here to help you with your health today. Could you tell me more about your symptoms?"
 - Stay focused on health triage.
 - Always be empathetic, conversational, and clinically safe.
-Remember: You are Rose, a caring and intelligent health assistant. 
-Your mission is to provide patients with a safe, supportive, and conversational preliminary assessment, 
+Remember: You are Rose, a caring and intelligent health assistant.
+Your mission is to provide patients with a safe, supportive, and conversational preliminary assessment,
 helping them decide whether to seek hospital care, consult a doctor, visit a pharmacist, or manage symptoms at home.
 `;
         const initialGreeting = "Hi there! I'm Rose, your AI health assistant. I'm here to help you understand your symptoms and guide you to the right care. How are you feeling today?";
@@ -1129,7 +1129,15 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function handleInputFocus() {
             setTimeout(scrollToBottom, 100);
         }
+        function setAppHeight() {
+            const height = window.innerHeight;
+            document.documentElement.style.setProperty('--app-height', `${height}px`);
+            setTimeout(scrollToBottom, 0);
+        }
         function initApp() {
+            setAppHeight();
+            window.addEventListener('resize', setAppHeight);
+            window.addEventListener('orientationchange', setAppHeight);
             renderConversationsList();
             if (conversations.length > 0) {
                 loadConversation(conversations[0].id);
@@ -1191,11 +1199,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                 }
                 try {
                     const base64 = await fileToBase64(file);
-                    attachedFiles.push({ 
-                        name: file.name, 
-                        type: file.type, 
-                        size: file.size, 
-                        data: base64 
+                    attachedFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: base64
                     });
                 } catch (error) {
                     console.error('Error processing file:', error);
@@ -1248,11 +1256,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                         const file = new File([blob], `voice-${Date.now()}.wav`, { type: 'audio/wav' });
                         try {
                             const base64 = await fileToBase64(file);
-                            attachedFiles.push({ 
-                                name: file.name, 
-                                type: file.type, 
-                                size: file.size, 
-                                data: base64 
+                            attachedFiles.push({
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                data: base64
                             });
                             updateFilePreview();
                         } catch (error) {
@@ -1318,9 +1326,9 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     typingIndicator.style.display = 'none';
                     addMessage(initialGreeting, false);
                     addMessageToConversation(initialGreeting, false);
-                    conversationHistory = [{ 
-                        role: "model", 
-                        parts: [{ text: initialGreeting }] 
+                    conversationHistory = [{
+                        role: "model",
+                        parts: [{ text: initialGreeting }]
                     }];
                 }, 1000);
             }
@@ -1330,11 +1338,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
         function addMessageToConversation(text, isUser, attachments = null) {
             const conversation = conversations.find(c => c.id === currentConversationId);
             if (!conversation) return;
-            conversation.messages.push({ 
-                text, 
-                isUser, 
-                attachments, 
-                timestamp: new Date().toISOString() 
+            conversation.messages.push({
+                text,
+                isUser,
+                attachments,
+                timestamp: new Date().toISOString()
             });
             if (isUser && conversation.title === 'New Conversation') {
                 conversation.title = text.slice(0, 35) + (text.length > 35 ? '...' : '');
@@ -1370,8 +1378,8 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
             emptyConversations.style.display = 'none';
             conversationsList.innerHTML = '';
             conversations.forEach(conversation => {
-                const lastMessage = conversation.messages.length > 0 
-                    ? conversation.messages[conversation.messages.length - 1].text 
+                const lastMessage = conversation.messages.length > 0
+                    ? conversation.messages[conversation.messages.length - 1].text
                     : 'No messages yet';
                 const item = document.createElement('div');
                 item.className = `conversation-item ${conversation.id === currentConversationId ? 'active' : ''}`;
@@ -1532,11 +1540,11 @@ helping them decide whether to seek hospital care, consult a doctor, visit a pha
                     body: JSON.stringify({
                         contents: conversationHistory,
                         system_instruction: { parts: [{ text: systemPrompt }] },
-                        generation_config: { 
-                            temperature: 0.7, 
-                            top_k: 40, 
-                            top_p: 0.8, 
-                            max_output_tokens: 2048 
+                        generation_config: {
+                            temperature: 0.7,
+                            top_k: 40,
+                            top_p: 0.8,
+                            max_output_tokens: 2048
                         }
                     })
                 });
