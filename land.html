@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rose - Virtual Health Assistant | Maintenance</title>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css  ">
     <style>
         :root {
             --primary-color: #5b6bf0;
@@ -447,7 +447,7 @@
             </div>
             <div class="progress-text">Maintenance in progress - Estimated completion: 2 hours</div>
 
-            <a href="https://avatar-ochre.vercel.app/" class="btn">
+            <a href="#" id="assessment-link" class="btn">
                 <span>Go to Text-Based Assessment</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
@@ -478,10 +478,10 @@
         </div>
 
          <div class="social-links">
-            <a href="https://x.com/dasmedhub" class="social-link"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.facebook.com/DASmedhub/" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/dasmedhub  " class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/DASmedhub/  " class="social-link"><i class="fab fa-facebook"></i></a>
            <!--<a href="#" class="social-link"><i class="fab fa-instagram"></i></a>-->
-            <a href="https://www.linkedin.com/company/das-medhub" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.linkedin.com/company/das-medhub  " class="social-link"><i class="fab fa-linkedin"></i></a>
         </div>
     </div>
 
@@ -493,6 +493,24 @@
     </footer>
 
     <script>
+        // Secure model URLs (similar to your implementation)
+        const modelUrls = {
+            triage: 'https://avatar-ochre.vercel.app/',
+        };
+
+        // Get the assessment link from secure URLs
+        function getAssessmentURL() {
+            return modelUrls.triage;
+        }
+
+        // Set the assessment link on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const assessmentLink = document.getElementById('assessment-link');
+            if (assessmentLink) {
+                assessmentLink.href = getAssessmentURL();
+            }
+        });
+
         // Enhanced countdown timer with dynamic progress bar
         function updateCountdown() {
             const now = new Date();
@@ -527,7 +545,7 @@
                 progressBar.style.background = 'linear-gradient(90deg, #4CAF50, #2ECC71)';
                 
                 // Update button text
-                const btn = document.querySelector('.btn');
+                const btn = document.getElementById('assessment-link');
                 btn.innerHTML = '<span>Access Rose Now</span> <i class="fas fa-arrow-right"></i>';
                 btn.href = 'rose.html';
             }
@@ -538,13 +556,17 @@
         setInterval(updateCountdown, 30000);
         
         // Add animation to button icon
-        const btn = document.querySelector('.btn');
-        btn.addEventListener('mouseenter', function() {
-            this.querySelector('i').style.transform = 'translateX(5px)';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.querySelector('i').style.transform = 'translateX(0)';
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('assessment-link');
+            if (btn) {
+                btn.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'translateX(5px)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = 'translateX(0)';
+                });
+            }
         });
         
         // Add subtle animation to feature cards when they come into view
@@ -566,5 +588,3 @@
     </script>
 </body>
 </html>
-
-
